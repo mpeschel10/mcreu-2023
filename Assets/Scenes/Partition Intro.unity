@@ -238,17 +238,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 521958536}
+--- !u!1 &314230370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4464160007006582748, guid: 1a60783d6d3e76940826af430c3993c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 597082150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &319703622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5557763653490568213, guid: 22fb56d28850901469757801ccb311d8,
     type: 3}
   m_PrefabInstance: {fileID: 1451131829}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &338865376 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-    type: 3}
-  m_PrefabInstance: {fileID: 567183493}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
@@ -396,9 +396,79 @@ Transform:
   - {fileID: 1673563920}
   - {fileID: 1216749759}
   - {fileID: 1062191952}
+  - {fileID: 829051657}
   m_Father: {fileID: 870583630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 270}
+--- !u!1001 &497499676
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 429541537}
+    m_Modifications:
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208809213445201285, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+        type: 3}
+      propertyPath: m_Name
+      value: OculusHand_L_Pinch
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d1f707f39b5fe445aaeafea5c89e61c, type: 3}
 --- !u!1 &521958536 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6282655812310277208, guid: 76a6f0dd88e99554ca6740bde4084e86,
@@ -411,75 +481,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6282655812763543760}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &567183493
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2010927412}
-    m_Modifications:
-    - target: {fileID: 2938852356051337341, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_Name
-      value: OculusHand_R_Point
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938852356051508317, guid: e576bc38460b6ef448a3b6717e7a9d35,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e576bc38460b6ef448a3b6717e7a9d35, type: 3}
 --- !u!1001 &597082150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -491,6 +492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OculusHand_R_Grip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464160007006582748, guid: 1a60783d6d3e76940826af430c3993c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4464160007006874620, guid: 1a60783d6d3e76940826af430c3993c6,
         type: 3}
@@ -560,6 +566,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 597082150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &829051656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5208809213445201285, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+    type: 3}
+  m_PrefabInstance: {fileID: 497499676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &829051657 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5208809213444833701, guid: 0d1f707f39b5fe445aaeafea5c89e61c,
+    type: 3}
+  m_PrefabInstance: {fileID: 497499676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +642,7 @@ GameObject:
   - component: {fileID: 870583632}
   - component: {fileID: 870583631}
   - component: {fileID: 870583636}
+  - component: {fileID: 870583637}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -1214,6 +1233,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &870583637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870583629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb097e1cfe9528e4a89f6a67f3257739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handNormal: {fileID: 1839827208}
+  handGrip: {fileID: 1216749760}
+  handPoint: {fileID: 1048568527}
+  handPinch: {fileID: 829051656}
+  gripReference: {fileID: 1846513436981325439, guid: dee6a24b8a581604789b6759273d4b23,
+    type: 3}
+  triggerReference: {fileID: -9003678138739450289, guid: dee6a24b8a581604789b6759273d4b23,
+    type: 3}
 --- !u!1001 &1048568526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1225,6 +1264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OculusHand_L_Point
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843608157482996180, guid: dad1556e584ce9040b033ca0137ffc11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3843608157483355636, guid: dad1556e584ce9040b033ca0137ffc11,
         type: 3}
@@ -1283,6 +1327,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad1556e584ce9040b033ca0137ffc11, type: 3}
+--- !u!1 &1048568527 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3843608157482996180, guid: dad1556e584ce9040b033ca0137ffc11,
+    type: 3}
+  m_PrefabInstance: {fileID: 1048568526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1062191952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3843608157483355636, guid: dad1556e584ce9040b033ca0137ffc11,
@@ -1304,6 +1354,7 @@ GameObject:
   - component: {fileID: 1120664213}
   - component: {fileID: 1120664212}
   - component: {fileID: 1120664217}
+  - component: {fileID: 1120664218}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -1894,6 +1945,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &1120664218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120664210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb097e1cfe9528e4a89f6a67f3257739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handNormal: {fileID: 1581656464}
+  handGrip: {fileID: 314230370}
+  handPoint: {fileID: 1352025562}
+  handPinch: {fileID: 1734015908}
+  gripReference: {fileID: -6027302763546323515, guid: dee6a24b8a581604789b6759273d4b23,
+    type: 3}
+  triggerReference: {fileID: -889942848281584141, guid: dee6a24b8a581604789b6759273d4b23,
+    type: 3}
 --- !u!1 &1185521570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,6 +2071,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OculusHand_L_Grip
       objectReference: {fileID: 0}
+    - target: {fileID: 8791217801557036007, guid: 3eb55f5228fcedc4e83aa1809ab76566,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eb55f5228fcedc4e83aa1809ab76566, type: 3}
 --- !u!4 &1216749759 stripped
@@ -2007,6 +2083,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8791217801556809671, guid: 3eb55f5228fcedc4e83aa1809ab76566,
     type: 3}
   m_PrefabInstance: {fileID: 1216749758}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1216749760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8791217801557036007, guid: 3eb55f5228fcedc4e83aa1809ab76566,
+    type: 3}
+  m_PrefabInstance: {fileID: 1216749758}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1352025562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7583790380755531240, guid: 9f86f3ccced46e944a6ff14921e69994,
+    type: 3}
+  m_PrefabInstance: {fileID: 1948569043085660754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1451131829
 PrefabInstance:
@@ -2079,6 +2167,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OculusHand_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557763653490864245, guid: 22fb56d28850901469757801ccb311d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22fb56d28850901469757801ccb311d8, type: 3}
@@ -2247,6 +2340,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1581656464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5557763653490864245, guid: 22fb56d28850901469757801ccb311d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1451131829}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1663470413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2639,12 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1734015908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3996625515145341471, guid: 043afc68190dbe9479ddefda12598d6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 68184335719943038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1839827207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2607,6 +2712,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OculusHand_L
       objectReference: {fileID: 0}
+    - target: {fileID: 5208809213445201285, guid: becfbc13f1b1ed94bb0ebe4e2ce72805,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5208809213454692315, guid: becfbc13f1b1ed94bb0ebe4e2ce72805,
         type: 3}
       propertyPath: m_Enabled
@@ -2614,6 +2724,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: becfbc13f1b1ed94bb0ebe4e2ce72805, type: 3}
+--- !u!1 &1839827208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5208809213445201285, guid: becfbc13f1b1ed94bb0ebe4e2ce72805,
+    type: 3}
+  m_PrefabInstance: {fileID: 1839827207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1846625067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,7 +2821,8 @@ Transform:
   m_Children:
   - {fileID: 319703622}
   - {fileID: 597082151}
-  - {fileID: 338865376}
+  - {fileID: 1948569043085660755}
+  - {fileID: 68184335719943039}
   m_Father: {fileID: 1120664211}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 90}
@@ -2807,6 +2924,156 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &68184335719943038
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2010927412}
+    m_Modifications:
+    - target: {fileID: 3996625515145341471, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_Name
+      value: OculusHand_R_Pinch
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 043afc68190dbe9479ddefda12598d6e, type: 3}
+--- !u!4 &68184335719943039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3996625515145836095, guid: 043afc68190dbe9479ddefda12598d6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 68184335719943038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1948569043085660754
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2010927412}
+    m_Modifications:
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583790380755531240, guid: 9f86f3ccced46e944a6ff14921e69994,
+        type: 3}
+      propertyPath: m_Name
+      value: OculusHand_R_Point
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f86f3ccced46e944a6ff14921e69994, type: 3}
+--- !u!4 &1948569043085660755 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7583790380755364296, guid: 9f86f3ccced46e944a6ff14921e69994,
+    type: 3}
+  m_PrefabInstance: {fileID: 1948569043085660754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6282655812763543760
 PrefabInstance:
   m_ObjectHideFlags: 0
