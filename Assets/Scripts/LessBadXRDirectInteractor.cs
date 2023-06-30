@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class LessBadXRDirectInteractor : MonoBehaviour
 {
     [SerializeField] InputActionReference selectReference;
-    [SerializeField] Collider pinchPoint;
     void Awake()
     {
         selectReference.action.performed += OnSelectPerformed;

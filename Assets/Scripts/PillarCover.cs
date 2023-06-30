@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PillarCover : MonoBehaviour, FreeMovement.Clickable
+public class PillarCover : MonoBehaviour, FreeMovement.Clickable, LessBadXRPokeInteractor.Pokeable
 {
     [SerializeField] GameObject pillar;
     public void Click()
@@ -10,4 +10,6 @@ public class PillarCover : MonoBehaviour, FreeMovement.Clickable
         pillar.SetActive(true);
         gameObject.SetActive(false);
     }
+
+    public void Poke() { Click(); }
 }

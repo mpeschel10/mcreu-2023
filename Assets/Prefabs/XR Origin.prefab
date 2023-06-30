@@ -271,6 +271,8 @@ MonoBehaviour:
     type: 3}
   triggerReference: {fileID: -9003678138739450289, guid: dee6a24b8a581604789b6759273d4b23,
     type: 3}
+  grip: 0
+  trigger: 0
 --- !u!1 &1595165159089473059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,6 +1325,8 @@ MonoBehaviour:
     type: 3}
   triggerReference: {fileID: -889942848281584141, guid: dee6a24b8a581604789b6759273d4b23,
     type: 3}
+  grip: 0
+  trigger: 0
 --- !u!1 &1595165159845286177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,7 +1510,7 @@ GameObject:
   - component: {fileID: 9131997427119218976}
   - component: {fileID: 5498580912557635662}
   - component: {fileID: 2979298075855770170}
-  - component: {fileID: 1731444019329300399}
+  - component: {fileID: 3712535252888311161}
   - component: {fileID: 4925649814927427508}
   m_Layer: 0
   m_Name: Pinch Point
@@ -1522,14 +1526,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7592248047040100627}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09681, y: 0.06967, z: -0.0186}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: 0.13913874, y: -0, z: -0, w: 0.9902729}
+  m_LocalPosition: {x: -0.0855, y: 0.0448, z: -0.0078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1595165159089473058}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15.996, y: 0, z: 0}
 --- !u!33 &5498580912557635662
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1580,8 +1584,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1731444019329300399
-SphereCollider:
+--- !u!136 &3712535252888311161
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1590,8 +1594,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.50000024
+  m_Radius: 0.03
+  m_Height: 0.08
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4925649814927427508
 MonoBehaviour:
@@ -1607,7 +1612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectReference: {fileID: 1846513436981325439, guid: dee6a24b8a581604789b6759273d4b23,
     type: 3}
-  pinchPoint: {fileID: 1731444019329300399}
 --- !u!1001 &948464543434038481
 PrefabInstance:
   m_ObjectHideFlags: 0

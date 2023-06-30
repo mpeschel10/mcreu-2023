@@ -17,8 +17,8 @@ public class AnimateHands : MonoBehaviour
         triggerReference.action.Enable();
     }
 
-    bool grip = false;
-    bool trigger = false;
+    public bool grip = false;
+    public bool trigger = false;
 
     void OnGrip(InputAction.CallbackContext context) { grip = true; }
     void OnGripCancel(InputAction.CallbackContext context) { grip = false; }
