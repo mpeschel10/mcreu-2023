@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class LessBadXRDirectInteractor : MonoBehaviour
 {
     [SerializeField] InputActionReference selectReference, actionReference;
+    [SerializeField] Transform trigger, pinchPoint;
     void Awake()
     {
         selectReference.action.performed += OnSelectPerformed;
@@ -17,19 +18,14 @@ public class LessBadXRDirectInteractor : MonoBehaviour
     void OnEnable() { selectReference.action.Enable(); actionReference.action.Enable(); }
     void OnDisable() { selectReference.action.Disable(); actionReference.action.Disable(); }
 
-    HashSet<Collider> activeColliders = new HashSet<Collider>();
-    void OnTriggerEnter(Collider other) {
-        Debug.Log("Trigger enter");
-        activeColliders.Add(other); }
-    void OnTriggerExit(Collider other) { activeColliders.Remove(other); }
-
-    Collider GetNearest(HashSet<Collider> colliders)
+    Collider GetNearest()
     {
         float bestDistance = float.PositiveInfinity;
         Collider bestCollider = null;
+        Collider[] colliders = Physics.OverlapBox(trigger.position, trigger.localScale / 2, trigger.rotation);
         foreach(Collider collider in colliders)
         {
-            Vector3 offset = collider.ClosestPoint(transform.position) - transform.position;
+            Vector3 offset = collider.ClosestPoint(pinchPoint.position) - pinchPoint.position;
             if (offset.magnitude < bestDistance)
             {
                 bestDistance = offset.magnitude;
@@ -73,17 +69,17 @@ public class LessBadXRDirectInteractor : MonoBehaviour
 
     void OnGrab()
     {
-        Debug.Log("Grabbing");
-        Collider grabbedCollider = GetNearest(activeColliders);
+        // Debug.Log("Grabbing");
+        Collider grabbedCollider = GetNearest();
         if (grabbedCollider == null) return;
         grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
         grabbed.Grab(transform);
-        Debug.Log("Grab happened");
+        // Debug.Log("Grab happened");
     }
 
     void OnUngrab()
     {
-        Debug.Log("Ungrabbing");
+        // Debug.Log("Ungrabbing");
         if (grabbed != null) grabbed.Ungrab();
     }
 

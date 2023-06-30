@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class LessBadXRPokeInteractor : MonoBehaviour
 {
-    Collider pokeCollider;
-    AnimateHands state;
-    void Awake() {
-        pokeCollider = GetComponent<Collider>();
-        state = GetComponentInParent<AnimateHands>();
-    }
+    [SerializeField] Collider pokeCollider;
+    [SerializeField] AnimateHands state;
     public interface Pokeable { void Poke(); }
     void OnTriggerEnter(Collider other)
     {
