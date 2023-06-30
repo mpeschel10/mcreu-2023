@@ -46,7 +46,7 @@ public class LessBadXRDirectInteractor : MonoBehaviour
     {
         Collider grabbedCollider = GetNearest(activeColliders);
         if (grabbedCollider == null) return;
-        grabbed = grabbedCollider.GetComponent<Grabbable>();
+        grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
         grabbed.Grab(transform);
     }
 

@@ -8,7 +8,7 @@ public class FreeMovement : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
     [SerializeField] float speed = 8;
-    [SerializeField] float acceleration = 1.3f;
+    [SerializeField] float acceleration = 1.3f, minimumSpeed = 1;
     [SerializeField] float lookSpeedX = 0.17f, lookSpeedY = 0.12f;
     InputAction move, look;
     private Transform grabTransform;
@@ -131,8 +131,9 @@ public class FreeMovement : MonoBehaviour
     {
         if (movementPlayerWants != Vector3.zero)
         {
-            if (currentSpeed < 1)
-                currentSpeed = 1;
+            if (currentSpeed < minimumSpeed)
+                currentSpeed = minimumSpeed;
+            currentSpeed += speed * Time.deltaTime;
             currentSpeed *= (float) System.Math.Pow(acceleration, Time.deltaTime);
             
             Transform t = cameraTransform;
