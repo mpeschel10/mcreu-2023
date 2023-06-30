@@ -1612,6 +1612,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectReference: {fileID: 1846513436981325439, guid: dee6a24b8a581604789b6759273d4b23,
     type: 3}
+  actionReference: {fileID: -9003678138739450289, guid: dee6a24b8a581604789b6759273d4b23,
+    type: 3}
+  select: 0
+  action: 0
 --- !u!1001 &948464543434038481
 PrefabInstance:
   m_ObjectHideFlags: 0

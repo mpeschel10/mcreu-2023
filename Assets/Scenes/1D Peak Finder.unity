@@ -1460,6 +1460,26 @@ PrefabInstance:
       propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Id
       value: f6d82566-8234-4ddb-ae52-a8f2552c3af8
       objectReference: {fileID: 0}
+    - target: {fileID: 1644049657781175022, guid: 83100aa79ba194247907bfdd37628534,
+        type: 3}
+      propertyPath: m_PositionInput.m_Action.m_Id
+      value: 949a7ae1-e53a-4099-976c-0b253e27484a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644049657781175022, guid: 83100aa79ba194247907bfdd37628534,
+        type: 3}
+      propertyPath: m_RotationInput.m_Action.m_Id
+      value: 3edcc043-2402-4de3-be15-c35998b2e0b7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644049657781175022, guid: 83100aa79ba194247907bfdd37628534,
+        type: 3}
+      propertyPath: m_PositionInput.m_Action.m_Name
+      value: Position Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644049657781175022, guid: 83100aa79ba194247907bfdd37628534,
+        type: 3}
+      propertyPath: m_RotationInput.m_Action.m_Name
+      value: Rotation Input
+      objectReference: {fileID: 0}
     - target: {fileID: 8476508330096269044, guid: 83100aa79ba194247907bfdd37628534,
         type: 3}
       propertyPath: m_InteractionManager
