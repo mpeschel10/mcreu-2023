@@ -7,6 +7,7 @@ public class LessBadXRDirectInteractor : MonoBehaviour
 {
     [SerializeField] InputActionReference selectReference, actionReference;
     [SerializeField] Transform trigger, pinchPoint;
+    [SerializeField] LayerMask pinchables;
     void Awake()
     {
         selectReference.action.performed += OnSelectPerformed;
@@ -22,7 +23,7 @@ public class LessBadXRDirectInteractor : MonoBehaviour
     {
         float bestDistance = float.PositiveInfinity;
         Collider bestCollider = null;
-        Collider[] colliders = Physics.OverlapBox(trigger.position, trigger.localScale / 2, trigger.rotation);
+        Collider[] colliders = Physics.OverlapBox(trigger.position, trigger.localScale / 2, trigger.rotation, pinchables);
         foreach(Collider collider in colliders)
         {
             Vector3 offset = collider.ClosestPoint(pinchPoint.position) - pinchPoint.position;
@@ -72,6 +73,7 @@ public class LessBadXRDirectInteractor : MonoBehaviour
         // Debug.Log("Grabbing");
         Collider grabbedCollider = GetNearest();
         if (grabbedCollider == null) return;
+        Debug.Log(grabbedCollider.gameObject);
         grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
         grabbed.Grab(transform);
         // Debug.Log("Grab happened");

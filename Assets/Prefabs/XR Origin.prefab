@@ -1403,7 +1403,7 @@ GameObject:
   - component: {fileID: 5489017168157812085}
   - component: {fileID: 3141344148997497308}
   - component: {fileID: 8424216737125061906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Poke Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1528,7 +1528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9131997427119218976}
   - component: {fileID: 4252002209850138494}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pinch Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1573,7 +1573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7691441663002786970}
   - component: {fileID: 9089865319069226028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pincher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,6 +1615,9 @@ MonoBehaviour:
     type: 3}
   trigger: {fileID: 9131997427119218976}
   pinchPoint: {fileID: 4625026129650984912}
+  pinchables:
+    serializedVersion: 2
+    m_Bits: 247
   select: 0
   action: 0
 --- !u!1 &8421627043375869683
@@ -1627,7 +1630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575092920442732036}
   - component: {fileID: 363075009431521631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Poke Highlight Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1671,7 +1674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4625026129650984912}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pinch Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
