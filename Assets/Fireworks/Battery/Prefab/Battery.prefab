@@ -4729,7 +4729,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
-  - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4789,6 +4788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4435395833885052}
+  - component: {fileID: 501348290831465745}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -4814,6 +4814,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &501348290831465745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149625324042060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78695581629f0f41a41f163221eda2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchers:
+  - {fileID: 198350199295296416}
+  - {fileID: 198605909727075382}
 --- !u!1 &1257549298828406
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,7 +4869,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257549298828406}
-  m_Mesh: {fileID: 4300000, guid: 02399d7fb4de87e48b753c2c17944b92, type: 3}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &23156034779555544
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4875,7 +4890,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a2be7321578f9e4bbac96e346289f9e, type: 2}
+  - {fileID: 2100000, guid: 3755e7c0cb14fb140add900418a0fe05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10519,12 +10534,12 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 1.25
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -19090,7 +19105,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
-  - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20005,12 +20019,12 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 1.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -28580,7 +28594,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -38118,7 +38131,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   - {fileID: 2100000, guid: 38ce9849b078048458aa3201970616a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
