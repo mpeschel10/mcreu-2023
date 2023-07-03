@@ -919,6 +919,7 @@ GameObject:
   - component: {fileID: 542364298}
   - component: {fileID: 542364299}
   - component: {fileID: 542364300}
+  - component: {fileID: 542364301}
   m_Layer: 7
   m_Name: Ruler Start
   m_TagString: Untagged
@@ -1032,6 +1033,18 @@ MonoBehaviour:
   rulerPlaneLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &542364301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542364293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870ec338065fd184db605cd4f15b99a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &562445330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1449,7 @@ GameObject:
   - component: {fileID: 804032509}
   - component: {fileID: 804032510}
   - component: {fileID: 804032511}
+  - component: {fileID: 804032512}
   m_Layer: 7
   m_Name: Ruler End
   m_TagString: Untagged
@@ -1549,6 +1563,18 @@ MonoBehaviour:
   rulerPlaneLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &804032512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804032504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870ec338065fd184db605cd4f15b99a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &826173529
 GameObject:
   m_ObjectHideFlags: 0
@@ -4561,7 +4587,7 @@ PrefabInstance:
     - target: {fileID: 2061838855556534915, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6629123080558569758, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
