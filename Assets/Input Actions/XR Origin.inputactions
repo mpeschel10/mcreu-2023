@@ -1,0 +1,74 @@
+{
+    "name": "XR Origin",
+    "maps": [
+        {
+            "name": "Tracked Pose Driver Map",
+            "id": "f6cb1963-c262-4488-a53a-39d8e82f74f5",
+            "actions": [
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "bd6fd971-6091-42e1-89e4-ef7098364b30",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "5f0482e1-13f1-4b71-bfcf-9d00c0c2a8ed",
+                    "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Tracking State",
+                    "type": "Value",
+                    "id": "e459d8ac-ccd0-4947-864e-639a0af371d5",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2b0ba754-4777-4cf2-a17a-e018271ee0a1",
+                    "path": "<XRHMD>/centerEyePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ccba5fa9-246b-4e0f-ba39-ae224fb1f002",
+                    "path": "<XRHMD>/centerEyeRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6701f456-2940-46e3-a883-b3e18114db79",
+                    "path": "<XRHMD>/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

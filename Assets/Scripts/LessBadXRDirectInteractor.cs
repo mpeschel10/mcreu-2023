@@ -73,7 +73,7 @@ public class LessBadXRDirectInteractor : MonoBehaviour
         // Debug.Log("Grabbing");
         Collider grabbedCollider = GetNearest();
         if (grabbedCollider == null) return;
-        Debug.Log(grabbedCollider.gameObject);
+        Debug.Log("Trying to grab collider " + grabbedCollider);
         grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
         grabbed.Grab(transform);
         // Debug.Log("Grab happened");

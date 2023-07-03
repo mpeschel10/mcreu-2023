@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Selectable
-  - Grabbable
-  - Interactors
+  - Selectable needs hover outline for poke/click
   - 
-  - 
+  - Poke interactors do not get grabbed
+  - Physics interactors do not get grabbed
+  - Physics interactable
   - 
   - 
   - 

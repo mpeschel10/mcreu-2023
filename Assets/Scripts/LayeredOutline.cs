@@ -5,19 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 public class LayeredOutline : MonoBehaviour
 {
-    static FreeMovement freeMovement;
-    int[] layerCounts;
-    Outline outline;
-    void Start()
+  static FreeMovement freeMovement;
+  int[] layerCounts;
+  Outline outline;
+  void Start()
+  {
+    if (freeMovement == null)
     {
-        if (freeMovement == null)
-        {
-          freeMovement = GameObject.FindAnyObjectByType<FreeMovement>();
-        }
-        layerCounts = new int[freeMovement.layerNames.Length];
-
-        outline = GetComponent<Outline>();
+      freeMovement = GameObject.FindAnyObjectByType<FreeMovement>();
     }
+    layerCounts = new int[freeMovement.layerNames.Length];
+
+    outline = GetComponent<Outline>();
+  }
 
   public void AddLayer(string layerName)
   {

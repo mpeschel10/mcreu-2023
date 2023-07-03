@@ -6,15 +6,12 @@ using UnityEngine.InputSystem;
 public class EscapeToggle : MonoBehaviour
 {
     [SerializeField] GameObject target;
-    InputAction escapeAction;
-    void Awake()
+    [SerializeField] InputActionReference actionReference;
+    void Start()
     {
-        escapeAction = new InputAction(name: "menuToggle", type: InputActionType.Button);
-        escapeAction.AddBinding("<Keyboard>/escape");
-        escapeAction.performed += OnEscape;
+        actionReference.action.performed += OnAction;
+        actionReference.action.Enable();
     }
-
-    void OnEnable() { escapeAction.Enable(); }
-    void OnDisable() { escapeAction.Disable(); }
-    void OnEscape(InputAction.CallbackContext context) { target.SetActive(!target.activeSelf); }
+    void OnAction(InputAction.CallbackContext context) { Toggle(); }
+    public void Toggle() { Debug.Log("Toggling"); target?.SetActive(!target.activeSelf); }
 }
