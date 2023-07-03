@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - Selectable needs hover outline for poke/click
-  - 
+  - Selectable needs hover outline for drag
   - Poke interactors do not get grabbed
   - Physics interactors do not get grabbed
   - Physics interactable
-  - 
+  - Ruler Plane
   - 
   - 
   - 

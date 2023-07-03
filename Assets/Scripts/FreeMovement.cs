@@ -112,7 +112,7 @@ public class FreeMovement : MonoBehaviour
             
             DoOutlines(raycastHit);
             DoClicks(raycastHit);
-            // DoDrags(raycastHit); // Will need rewrite since transform offset is no longer fixed to camera
+            DoDrags(raycastHit);
         } else {
             // Putting the outline removal code here is hacky and bad. I don't know how I can fix this.
             if (hoverable != null)
@@ -215,6 +215,7 @@ public class FreeMovement : MonoBehaviour
     {
         if (hitInfo.collider != null && Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Trying to grab");
             if (dragging != null) // We missed a GetMouseButtonUp() somewhere; normalize.
             {
                 dragging.Ungrab();
@@ -225,7 +226,7 @@ public class FreeMovement : MonoBehaviour
             {
                 // grabTransform is child of this.transform.
                 // Fix the grab relative to the camera.
-                grabTransform.position = hitInfo.point;
+                grabTransform.position = hitInfo.point; // This may no longer be necessary now that I'm doing mouse grabs
                 dragging.Grab(grabTransform);
             }
         }

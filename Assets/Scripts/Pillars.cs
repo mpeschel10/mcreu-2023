@@ -56,7 +56,6 @@ public class Pillars : MonoBehaviour
 
     int SeekCollapsedBelow(int index, int direction, float peak)
     {
-        Debug.Log("Seeking value less than " + peak + " in direction " + direction + " from index " + index);
         while (!(heights[index] < peak))
         {
             index += direction;
@@ -79,7 +78,6 @@ public class Pillars : MonoBehaviour
             float right = heights[rightRegionBoundary];
             int leftEdgeBoundary = SeekCollapsedBelow(leftRegionBoundary, -1, left);
             int rightEdgeBoundary = SeekCollapsedBelow(rightRegionBoundary, 1, right);
-            Debug.Log($"{leftEdgeBoundary - 2}, {leftRegionBoundary - 2}, {rightRegionBoundary - 2}, {rightEdgeBoundary - 2}");
 
             int spanIfAbove = rightRegionBoundary - leftRegionBoundary - 1;
             int spanIfBetween = right > left ? rightEdgeBoundary - index - 1 : index - leftEdgeBoundary - 1;
@@ -87,11 +85,9 @@ public class Pillars : MonoBehaviour
 
             if (spanIfAbove > spanIfBetween)
             {
-                Debug.Log("Selecting above");
                 // height must right < height.
                 height = System.Math.Max(right, left) + 0.1f;
             } else {
-                Debug.Log("Selecting between");
                 height = (right + left) / 2;
             }
         }
@@ -114,7 +110,6 @@ public class Pillars : MonoBehaviour
                 iterations += count;
                 count = 0;
             }
-            Debug.Log(count + " is count and iterations: " + iterations);
         }
         return iterations;
     }
