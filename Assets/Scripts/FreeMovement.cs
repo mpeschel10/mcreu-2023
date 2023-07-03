@@ -215,7 +215,6 @@ public class FreeMovement : MonoBehaviour
     {
         if (hitInfo.collider != null && Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Trying to grab");
             if (dragging != null) // We missed a GetMouseButtonUp() somewhere; normalize.
             {
                 dragging.Ungrab();

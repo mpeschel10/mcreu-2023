@@ -16,7 +16,6 @@ public class RulerMouseDraggable : MonoBehaviour, FreeMovement.Draggable
         else
             grabOffset = transform.position - raycastHit.point;
         enabled = true;
-        Debug.Log("Grab");
     }
 
     void Update()

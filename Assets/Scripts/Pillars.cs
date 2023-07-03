@@ -11,6 +11,7 @@ public class Pillars : MonoBehaviour
     int count = 50;
     public PillarCover[] pillarCovers;
     public float[] heights;
+    [SerializeField] GameObject maximumMarker;
     void Start()
     {
         float pillarWidth = sourceCell.transform.lossyScale.x;
@@ -114,14 +115,53 @@ public class Pillars : MonoBehaviour
         return iterations;
     }
 
-    public void Click(int index)
+    float maximumSoFar = 0;
+    public void Reveal(int index)
     {
         Collapse(index);
         PillarCover pillarCover = pillarCovers[index];
         Vector3 oldSize = pillarCover.transform.localScale;
-        pillarCover.pillarOffset.transform.localScale = new Vector3(oldSize.x, heights[index], oldSize.z);
+        float height = heights[index];
+        pillarCover.pillarOffset.transform.localScale = new Vector3(oldSize.x, height, oldSize.z);
+        if (height > maximumSoFar)
+        {
+            Vector3 oldPosition = maximumMarker.transform.localPosition;
+            Transform cell = pillarCover.transform.parent.parent;
+            maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, oldPosition.y, oldPosition.z);
+            maximumSoFar = height;
+        }
         pillarCover.Reveal();
-        cost += 1;
+    }
+
+    public bool pairsHint = false;
+    private bool _maximumHint = false;
+    public bool maximumHint {
+        get { return _maximumHint; }
+        set {
+            _maximumHint = value;
+            maximumMarker.SetActive(value);
+        }
+    }
+
+    public void Click(int index)
+    {
+        Reveal(index);
+        cost++;
+
+        if (pairsHint)
+        {
+            int pair = -1;
+            if (index > 0 && float.IsNaN(heights[index - 1]))
+                pair = index - 1;
+            else if (index < heights.Length - 1 && float.IsNaN(heights[index + 1]))
+                pair = index + 1;
+            if (pair != -1)
+            {
+                Reveal(pair);
+                cost++;
+            }
+        }
+
         scoreboard.SetCost(cost);
         CheckWin();
     }
@@ -134,6 +174,7 @@ public class Pillars : MonoBehaviour
         {
             if (heights[i - 1] <= heights[i] && heights[i] >= heights[i + 1])
             {
+                Debug.Log("Won");
                 pillarCovers[i].pillar.GetComponent<MeshRenderer>().material = winMaterial;
                 fireworks.enabled = true;
                 Invoke(nameof(turnOffFireworks), 7);

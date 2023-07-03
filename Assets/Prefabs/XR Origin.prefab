@@ -1631,6 +1631,9 @@ MonoBehaviour:
   state: {fileID: 1595165158456804310}
   pokeFocus: {fileID: 575092920442732036}
   radius: 0.1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7592248047040100627
 GameObject:
   m_ObjectHideFlags: 0
