@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pillars : MonoBehaviour
 {
-    [SerializeField] GameObject sourceCell;
+    [SerializeField] GameObject sourceCell, scaleCell;
     [SerializeField] Material winMaterial;
     [SerializeField] FireworksOnOff fireworks;
     [SerializeField] Scoreboard scoreboard;
@@ -14,25 +14,7 @@ public class Pillars : MonoBehaviour
     [SerializeField] GameObject maximumMarker;
     void Start()
     {
-        float pillarWidth = sourceCell.transform.lossyScale.x;
-        Vector3 start = sourceCell.transform.position;
-        start += Vector3.left * pillarWidth * 0.5f * (count + 4);
-
-        pillarCovers = new PillarCover[count + 4];
-        for (int i = 0; i < pillarCovers.Length - 0; i++)
-        {
-            Vector3 offset = i * Vector3.right * pillarWidth;
-            GameObject cell = Object.Instantiate(sourceCell, start + offset, sourceCell.transform.rotation, transform);
-            
-            PillarCover pillarCover = cell.GetComponentInChildren<PillarCover>();
-            pillarCovers[i] = pillarCover;
-            pillarCover.index = i;
-            pillarCover.parent = this;
-        }
-        pillarCovers[0].gameObject.SetActive(false);
-        pillarCovers[1].gameObject.SetActive(false);
-        pillarCovers[pillarCovers.Length - 2].gameObject.SetActive(false);
-        pillarCovers[pillarCovers.Length - 1].gameObject.SetActive(false);
+        MakePillars();
 
         heights = new float[count + 4];
         for (int i = 0; i < heights.Length; i++)
@@ -46,6 +28,35 @@ public class Pillars : MonoBehaviour
         scoreboard.SetCost(0);
         scoreboard.SetBest(GetBest(count));
         FixNext();
+    }
+
+    void MakePillars()
+    {
+        float minimumWidth = scaleCell.transform.lossyScale.x;
+        float targetSpan = 1f; // Width of table.
+        float pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumWidth, float.PositiveInfinity);
+        Vector3 oldScale = scaleCell.transform.localScale;
+        scaleCell.transform.localScale = new Vector3(pillarWidth, oldScale.y, oldScale.z);
+        
+        Vector3 start = sourceCell.transform.position;
+        start += Vector3.left * pillarWidth * 0.5f * (count + 4);
+
+        pillarCovers = new PillarCover[count + 4];
+        for (int i = 0; i < pillarCovers.Length - 0; i++)
+        {
+            Vector3 offset = i * Vector3.right * pillarWidth;
+            GameObject cell = Object.Instantiate(sourceCell, start + offset, sourceCell.transform.rotation, transform);
+            
+            PillarCover pillarCover = cell.GetComponentInChildren<PillarCover>();
+            pillarCovers[i] = pillarCover;
+            pillarCover.index = i;
+            pillarCover.parent = this;
+            pillarCover.UpdateDisplayIndex();
+        }
+        pillarCovers[0].transform.parent.parent.parent.gameObject.SetActive(false);
+        pillarCovers[1].transform.parent.parent.parent.gameObject.SetActive(false);
+        pillarCovers[pillarCovers.Length - 2].transform.parent.parent.parent.gameObject.SetActive(false);
+        pillarCovers[pillarCovers.Length - 1].transform.parent.parent.parent.gameObject.SetActive(false);
     }
 
     float MAX_HEIGHT = 1f, MIN_HEIGHT = 0.001f;
