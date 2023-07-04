@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class RulerMouseDraggable : MonoBehaviour, FreeMovement.Draggable
 {
-    void Awake() { enabled = false; }
+    void Start() {
+        enabled = false;
+        Fix();
+    }
     Vector3 grabOffset;
     [SerializeField] LayerMask rulerPlaneLayerMask;
+    [SerializeField] Pillars pillars;
+    [SerializeField] TMPro.TMP_Text textFront;
+    [SerializeField] RulerBody rulerBody;
     public void Grab(Transform grabTransform)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -18,12 +24,27 @@ public class RulerMouseDraggable : MonoBehaviour, FreeMovement.Draggable
         enabled = true;
     }
 
+    public int index = 0;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit raycastHit, float.PositiveInfinity, rulerPlaneLayerMask);
         if (raycastHit.collider != null)
             transform.position = raycastHit.point + grabOffset;
+        Fix();
+    }
+
+    public void Fix()
+    {
+        FixIndex();
+        rulerBody.Fix();
+    }
+
+    void FixIndex()
+    {
+        index = pillars.PositionToIndex(transform.position);
+        textFront.text = index.ToString();
+        Debug.Log(index);
     }
 
     public void Ungrab()

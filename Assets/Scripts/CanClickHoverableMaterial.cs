@@ -7,10 +7,11 @@ public class CanClickHoverableMaterial : MonoBehaviour, FreeMovement.Hoverable
     Material normalMaterial;
     [SerializeField] Material hoverMaterial, nextMaterial;
     bool hovering = false, next = false;
-    MeshRenderer meshRenderer;
+    [SerializeField] MeshRenderer meshRenderer;
     void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer == null)
+            meshRenderer = GetComponent<MeshRenderer>();
         normalMaterial = meshRenderer.material;
     }
 

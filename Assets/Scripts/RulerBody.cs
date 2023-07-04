@@ -5,8 +5,22 @@ using UnityEngine;
 public class RulerBody : MonoBehaviour
 {
     [SerializeField] GameObject rulerStart, rulerEnd, rulerMiddle, rulerStick;
-    // Update is called once per frame
-    void Update()
+    [SerializeField] TMPro.TMP_Text middleText;
+    RulerMouseDraggable rulerStartDraggable, rulerEndDraggable;
+
+    void Awake()
+    {
+        rulerStartDraggable = rulerStart.GetComponent<RulerMouseDraggable>();
+        rulerEndDraggable = rulerEnd.GetComponent<RulerMouseDraggable>();
+    }
+
+    public void Fix()
+    {
+        FixOrientation();
+        FixText();
+    }
+
+    public void FixOrientation()
     {
         Vector3 offset = (rulerEnd.transform.position - rulerStart.transform.position);
         Vector3 oldScale = rulerStick.transform.localScale;
@@ -14,5 +28,11 @@ public class RulerBody : MonoBehaviour
 
         transform.position = rulerStart.transform.position + offset / 2f;
         transform.rotation = Quaternion.LookRotation(offset) * Quaternion.Euler(90, 0, 0);
+    }
+
+    public void FixText()
+    {
+        float average = (rulerStartDraggable.index + rulerEndDraggable.index) / 2f;
+        middleText.text = average.ToString();
     }
 }

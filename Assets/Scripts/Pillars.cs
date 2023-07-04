@@ -12,7 +12,7 @@ public class Pillars : MonoBehaviour
     public PillarCover[] pillarCovers;
     public float[] heights;
     [SerializeField] GameObject maximumMarker;
-    void Start()
+    void Awake()
     {
         MakePillars();
 
@@ -30,11 +30,12 @@ public class Pillars : MonoBehaviour
         FixNext();
     }
 
+    float pillarWidth;
     void MakePillars()
     {
         float minimumWidth = scaleCell.transform.lossyScale.x;
         float targetSpan = 1f; // Width of table.
-        float pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumWidth, float.PositiveInfinity);
+        pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumWidth, float.PositiveInfinity);
         Vector3 oldScale = scaleCell.transform.localScale;
         scaleCell.transform.localScale = new Vector3(pillarWidth, oldScale.y, oldScale.z);
         
@@ -319,4 +320,12 @@ public class Pillars : MonoBehaviour
     }
 
     public void turnOffFireworks() { fireworks.enabled = false; }
+
+    public int PositionToIndex(Vector3 worldSpacePosition)
+    {
+        Vector3 localPosition = transform.InverseTransformPoint(worldSpacePosition);
+        Vector3 localLeftEdge = transform.InverseTransformPoint(pillarCovers[2].transform.position);
+        float xOffset = localPosition.x - localLeftEdge.x;
+        return (int) Mathf.Round(xOffset / pillarWidth);
+    }
 }
