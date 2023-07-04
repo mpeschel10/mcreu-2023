@@ -19,5 +19,10 @@ public class PillarCover : MonoBehaviour, FreeMovement.Clickable, LessBadXRPokeI
         gameObject.SetActive(false);
     }
 
+    public bool IsRevealed()
+    {
+        return pillar.gameObject.activeSelf;
+    }
+
     public void Poke() { Click(); }
 }

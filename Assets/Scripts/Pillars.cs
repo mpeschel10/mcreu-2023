@@ -8,7 +8,7 @@ public class Pillars : MonoBehaviour
     [SerializeField] Material winMaterial;
     [SerializeField] FireworksOnOff fireworks;
     [SerializeField] Scoreboard scoreboard;
-    int count = 50;
+    int count = 40;
     public PillarCover[] pillarCovers;
     public float[] heights;
     [SerializeField] GameObject maximumMarker;
@@ -16,7 +16,7 @@ public class Pillars : MonoBehaviour
     {
         float pillarWidth = sourceCell.transform.lossyScale.x;
         Vector3 start = sourceCell.transform.position;
-        start += Vector3.left * pillarWidth * 0.5f * count;
+        start += Vector3.left * pillarWidth * 0.5f * (count + 4);
 
         pillarCovers = new PillarCover[count + 4];
         for (int i = 0; i < pillarCovers.Length - 0; i++)
@@ -30,6 +30,8 @@ public class Pillars : MonoBehaviour
             pillarCover.parent = this;
         }
         pillarCovers[0].gameObject.SetActive(false);
+        pillarCovers[1].gameObject.SetActive(false);
+        pillarCovers[pillarCovers.Length - 2].gameObject.SetActive(false);
         pillarCovers[pillarCovers.Length - 1].gameObject.SetActive(false);
 
         heights = new float[count + 4];
@@ -43,6 +45,7 @@ public class Pillars : MonoBehaviour
         sourceCell.SetActive(false);
         scoreboard.SetCost(0);
         scoreboard.SetBest(GetBest(count));
+        FixNext();
     }
 
     float MAX_HEIGHT = 1f, MIN_HEIGHT = 0.001f;
@@ -86,13 +89,54 @@ public class Pillars : MonoBehaviour
 
             if (spanIfAbove > spanIfBetween)
             {
-                // height must right < height.
                 height = System.Math.Max(right, left) + 0.1f;
             } else {
                 height = (right + left) / 2;
             }
         }
         heights[index] = height;
+    }
+
+    private bool _hideHint = false;
+    public bool hideHint
+    {
+        get { return _hideHint; }
+        set
+        {
+            _hideHint = value;
+            if (_hideHint)
+                HideBadPillars();
+            else
+                for (int i = 2; i < pillarCovers.Length - 2; i++)
+                    pillarCovers[i].gameObject.SetActive(!pillarCovers[i].IsRevealed());
+        }
+    }
+
+    (int, int, int) GetPeakZone()
+    {
+        float maximum = 0;
+        int maximumIndex = 0;
+        for (int i = 2; i < heights.Length - 2; i++)
+        {
+            if (heights[i] > maximum)
+            {
+                maximum = heights[i];
+                maximumIndex = i;
+            }
+        }
+        if (maximumIndex == 0) return (-1, -1, -1);
+        int leftBorder = SeekCollapsed(maximumIndex - 1, -1);
+        int rightBorder = SeekCollapsed(maximumIndex + 1, 1);
+        return (leftBorder, maximumIndex, rightBorder);
+    }
+
+    void HideBadPillars()
+    {
+        (int left, int max, int right) = GetPeakZone();
+        if (max == -1) return;
+        for (int i = 2; i < pillarCovers.Length - 2; i++)
+            if (!pillarCovers[i].IsRevealed())
+                pillarCovers[i].gameObject.SetActive(left < i && i < right);
     }
 
     public int GetBest(int count)
@@ -130,6 +174,8 @@ public class Pillars : MonoBehaviour
             maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, oldPosition.y, oldPosition.z);
             maximumSoFar = height;
         }
+        if (_hideHint)
+            HideBadPillars();
         pillarCover.Reveal();
     }
 
@@ -164,6 +210,7 @@ public class Pillars : MonoBehaviour
 
         scoreboard.SetCost(cost);
         CheckWin();
+        FixNext();
     }
 
     public bool won = false;
@@ -180,6 +227,83 @@ public class Pillars : MonoBehaviour
                 Invoke(nameof(turnOffFireworks), 7);
                 won = true;
             }
+        }
+    }
+
+    bool _nextStepHint = false;
+    public bool nextStepHint
+    {
+        get { return _nextStepHint; }
+        set {
+            _nextStepHint = value;
+            FixNext();
+        }
+    }
+    void FixNext()
+    {
+        HideNext();
+        if (_nextStepHint) ShowNext();
+    }
+
+
+    int nextIndex = -1;
+    void HideNext()
+    {
+        if (nextIndex != -1)
+            SetNext(nextIndex, false);
+    }
+
+    void SetNext(int index, bool value)
+    {
+        pillarCovers[index].GetComponent<CanClickHoverableMaterial>().SetNext(value);
+        if (value)
+        {
+            if (nextIndex != -1)
+                throw new System.Exception("Should not SetNext while a next already exists. Call HideNext first. nextIndex: " + nextIndex);
+            nextIndex = index;
+        } else {
+            nextIndex = -1;
+        }
+    }
+
+    void ShowNext()
+    {
+        if (won) return;
+        if (pillarCovers.Length == 4) return;
+        if (pillarCovers.Length == 5)
+        {
+            SetNext(2, true);
+            return;
+        }
+        
+        (int left, int max, int right) = GetPeakZone();
+        if (max == -1)
+        {
+            SetNext(pillarCovers.Length / 2, true);
+            return;
+        }
+
+        int left_span = max - left;
+        int right_span = right - max;
+        if (left_span != 1 && right_span != 1)
+        {
+            // The peak is alone and does not effectively divide the array.
+            // Next step is to reveal something next to the peak and bisect.
+            int direction_of_larger_span = right_span > left_span ? 1 : -1;
+            SetNext(max + direction_of_larger_span, true);
+        } else {
+            if (left_span > right_span)
+            {
+                left = left + 1;
+                right = max - 1;
+            } else {
+                left = max + 1;
+                right = right - 1;
+            }
+            if (left == right)
+                SetNext(left, true);
+            else
+                SetNext((left + right) / 2 + 1, true);
         }
     }
 

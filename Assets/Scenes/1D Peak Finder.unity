@@ -1005,6 +1005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
+  nextMaterial: {fileID: 0}
 --- !u!135 &542364299
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1535,6 +1536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
+  nextMaterial: {fileID: 0}
 --- !u!135 &804032510
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1703,6 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
+  nextMaterial: {fileID: 2100000, guid: dc1492723f66fda46a56b1a1d6652c18, type: 2}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3414,7 +3417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888589606}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.09375}
+  m_LocalPosition: {x: 0, y: 0, z: -0.03125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3662,7 +3665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939790862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.09375}
+  m_LocalPosition: {x: 0, y: 0, z: -0.03125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
