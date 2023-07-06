@@ -182,16 +182,18 @@ public class Pillars : MonoBehaviour
         if (height > maximumSoFar)
         {
             Vector3 oldPosition = maximumMarker.transform.localPosition;
-            Transform cell = pillarCover.transform.parent.parent;
+            Transform cell = pillarCover.transform.parent.parent.parent;
             maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, oldPosition.y, oldPosition.z);
             maximumSoFar = height;
+            Debug.Log(oldPosition);
+            Debug.Log(cell.localPosition.x);
         }
         if (_hideHint)
             HideBadPillars();
         pillarCover.Reveal();
     }
 
-    public bool pairsHint = false;
+    public bool pairsHint { get; set; }
     private bool _maximumHint = false;
     public bool maximumHint {
         get { return _maximumHint; }

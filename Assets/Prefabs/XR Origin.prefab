@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 1595165159249626573}
   - component: {fileID: 1085279669680175573}
   - component: {fileID: 6842173096431796069}
+  - component: {fileID: 2468884286155691850}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -536,6 +537,19 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -8525429354371678379, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+--- !u!114 &2468884286155691850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595165159249626574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a3226fdaa82c345aa1f3bc78a2e19a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1 &1595165159277349404
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +801,7 @@ GameObject:
   - component: {fileID: 1595165159780398103}
   - component: {fileID: 1595165159780398106}
   - component: {fileID: 1595165159780398105}
+  - component: {fileID: 5172376679118447656}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -1408,6 +1423,19 @@ MonoBehaviour:
     type: 3}
   grip: 0
   trigger: 0
+--- !u!114 &5172376679118447656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595165159780398097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f6789f264ff2a4f91a60f5dfc5121a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeftHand: 0
 --- !u!1 &1595165159845286177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1512,7 @@ GameObject:
   - component: {fileID: 5489017168157812085}
   - component: {fileID: 3141344148997497308}
   - component: {fileID: 8424216737125061906}
+  - component: {fileID: 3475062235080955335}
   m_Layer: 8
   m_Name: Poke Point
   m_TagString: Untagged
@@ -1602,6 +1631,67 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &3475062235080955335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949936631351966821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0924bcaa9eb50df458a783ae0e2b59f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_AttachTransform: {fileID: 0}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PokeDepth: 0.1
+  m_PokeWidth: 0.0075
+  m_PokeSelectWidth: 0.015
+  m_PokeHoverRadius: 0.015
+  m_PokeInteractionOffset: 0.005
+  m_PhysicsLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_PhysicsTriggerInteraction: 1
+  m_RequirePokeFilter: 1
+  m_EnableUIInteraction: 1
+  m_DebugVisualizationsEnabled: 0
 --- !u!1 &7592248047040100627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,8 +1851,8 @@ GameObject:
   - component: {fileID: 3496684722870615063}
   - component: {fileID: 8757105243514998373}
   - component: {fileID: 7038613547336313308}
-  - component: {fileID: 700144878488412111}
   - component: {fileID: 7791666600087817706}
+  - component: {fileID: 1139188746703445044}
   m_Layer: 9
   m_Name: Hand Menu Canvas
   m_TagString: Untagged
@@ -1851,20 +1941,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &700144878488412111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8498843350224514763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e8fa2b815d07054daec914b67c5c729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  scaleFactor: 0.00048828125
 --- !u!114 &7791666600087817706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1884,6 +1960,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
+--- !u!114 &1139188746703445044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843350224514763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25d07f2f603fd94f986d078bf304e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 0}
+  scaleFactor: 0.00048828125
 --- !u!1 &8794386058048225752
 GameObject:
   m_ObjectHideFlags: 0

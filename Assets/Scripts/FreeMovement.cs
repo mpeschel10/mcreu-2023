@@ -12,8 +12,7 @@ public class FreeMovement : MonoBehaviour
     [SerializeField] float lookSpeedX = 0.17f, lookSpeedY = 0.12f;
     InputAction move, look;
     private Transform grabTransform;
-    // [SerializeField] float selectionRange = 50f;
-    [SerializeField] LayerMask selectableMask = 64;
+    [SerializeField] LayerMask selectableMask = 64 + 128;
 
     void Start()
     {

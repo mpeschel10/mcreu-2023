@@ -6,9 +6,18 @@
             "id": "a94d4dc3-79c3-4b0e-a0c0-adb6ab1a8e73",
             "actions": [
                 {
-                    "name": "Toggle Menu",
+                    "name": "Toggle Left Hand Menu",
                     "type": "Button",
                     "id": "802dc4d8-81c5-4662-adc8-a5b68546b6ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Full Screen Menu",
+                    "type": "Button",
+                    "id": "331ad57d-fc80-4332-8343-b467c7f908d7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -18,23 +27,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "6d5fd673-29ef-4a5c-818d-e15ac7906350",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Toggle Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4d4fdd1b-8ead-4ed1-9c4d-d508325586d0",
                     "path": "<XRSimulatedController>{LeftHand}/menuButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -45,7 +43,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -56,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -67,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -78,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -89,7 +87,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Menu",
+                    "action": "Toggle Left Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f2d1eaa-2b3f-4c36-8b78-744427c30527",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Full Screen Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

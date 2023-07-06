@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RulerMouseDraggable : MonoBehaviour, FreeMovement.Draggable
+public class RulerMouseDraggable : MonoBehaviour, MouseSelector.Draggable
 {
     void Start() {
         enabled = false;
@@ -44,7 +44,6 @@ public class RulerMouseDraggable : MonoBehaviour, FreeMovement.Draggable
     {
         index = pillars.PositionToIndex(transform.position);
         textFront.text = index.ToString();
-        Debug.Log(index);
     }
 
     public void Ungrab()

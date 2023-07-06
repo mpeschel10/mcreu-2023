@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanClickHoverableMaterial : MonoBehaviour, FreeMovement.Hoverable
+public class CanClickHoverableMaterial : MonoBehaviour, MouseSelector.Hoverable
 {
     Material normalMaterial;
     [SerializeField] Material hoverMaterial, nextMaterial;

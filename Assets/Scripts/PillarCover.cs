@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PillarCover : MonoBehaviour, FreeMovement.Clickable, LessBadXRPokeInteractor.Pokeable
+public class PillarCover : MonoBehaviour, MouseSelector.Clickable, LessBadXRPokeInteractor.Pokeable
 {
     public GameObject pillar, pillarOffset;
     [SerializeField] TMP_Text textFront, textBack;

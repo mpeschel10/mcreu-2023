@@ -25,14 +25,14 @@ public class PokeHighlighter : MonoBehaviour
         }
         return bestCollider;
     }
-    FreeMovement.Hoverable hoverable;
+    MouseSelector.Hoverable hoverable;
     void Update()
     {
-        FreeMovement.Hoverable newHoverable;
+        MouseSelector.Hoverable newHoverable;
         if (state.grip && !state.trigger)
         {
             Collider newCollider = GetNearestCollider();
-            newHoverable = newCollider?.GetComponent<FreeMovement.Hoverable>();
+            newHoverable = newCollider?.GetComponent<MouseSelector.Hoverable>();
         } else {
             newHoverable = null;
         }
