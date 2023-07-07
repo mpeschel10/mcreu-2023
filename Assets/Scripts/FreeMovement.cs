@@ -69,6 +69,14 @@ public class FreeMovement : MonoBehaviour
         look.canceled  += OnLookCanceled;
     }
 
+    void OnDestroy()
+    {
+        move.performed -= OnMove;
+        look.started   -= OnLookStarted;
+        look.performed -= OnLookPerformed;
+        look.canceled  -= OnLookCanceled;
+    }
+
     void OnEnable()
     {
         move.Enable();

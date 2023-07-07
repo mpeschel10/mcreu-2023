@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Toggle Right Hand Menu",
+                    "type": "Button",
+                    "id": "7517f684-a4f9-4495-b86f-0177113e51ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Toggle Full Screen Menu",
                     "type": "Button",
                     "id": "331ad57d-fc80-4332-8343-b467c7f908d7",
@@ -99,6 +108,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle Full Screen Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6193c912-10e0-44a4-b819-78bd86bab169",
+                    "path": "<XRSimulatedController>{RightHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e356d3d-f957-446f-9237-be3a8de3d61c",
+                    "path": "<XRSimulatedController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd497156-7063-4496-9bf5-d33bb08c7753",
+                    "path": "<XRSimulatedController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe41b1a3-1ae2-4f59-ac3b-aab682bae8d0",
+                    "path": "<OculusTouchController>{RightHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9579d1d3-5f14-4ca8-9f05-d072b0adc608",
+                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9529cf70-2efe-43ba-9981-e029d4ba4e57",
+                    "path": "<OculusTouchController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Right Hand Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

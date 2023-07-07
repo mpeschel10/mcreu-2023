@@ -8,13 +8,22 @@ public class AnimateHands : MonoBehaviour
     [SerializeField] GameObject handNormal, handGrip, handPoint, handPinch;
     GameObject current;
     [SerializeField] InputActionReference gripReference, triggerReference;
-    void Awake() {
+    void Awake()
+    {
         gripReference.action.performed += OnGrip;
         gripReference.action.canceled += OnGripCancel;
         gripReference.action.Enable();
         triggerReference.action.performed += OnTrigger;
         triggerReference.action.canceled += OnTriggerCancel;
         triggerReference.action.Enable();
+    }
+
+    void OnDestroy()
+    {
+        gripReference.action.performed -= OnGrip;
+        gripReference.action.canceled -= OnGripCancel;
+        triggerReference.action.performed -= OnTrigger;
+        triggerReference.action.canceled -= OnTriggerCancel;
     }
 
     public bool grip = false;
@@ -25,7 +34,8 @@ public class AnimateHands : MonoBehaviour
     void OnTrigger(InputAction.CallbackContext context) { trigger = true; }
     void OnTriggerCancel(InputAction.CallbackContext context) { trigger = false; }
 
-    void Update() {
+    void Update()
+    {
         current = grip ?
             ( trigger ? handGrip : handPoint ) :
             ( trigger ? handPinch : handNormal );

@@ -11,23 +11,38 @@ public class Pillars : MonoBehaviour
     int count = 40;
     public PillarCover[] pillarCovers;
     public float[] heights;
+    GameObject[] pillarObjects;
     [SerializeField] GameObject maximumMarker;
+    int cost = 0;
+    float maximumSoFar = 0;
+    public bool won = false;
+    int nextIndex = -1;
     void Awake()
     {
         MakePillars();
-
-        heights = new float[count + 4];
-        for (int i = 0; i < heights.Length; i++)
-            heights[i] = float.NaN;
-        heights[0] = 0f;
-        heights[1] = MIN_HEIGHT;
-        heights[heights.Length - 2] = MIN_HEIGHT;
-        heights[heights.Length - 1] = 0f;
+        MakeHeights();
+        ResetVariables();
         
         sourceCell.SetActive(false);
-        scoreboard.SetCost(0);
-        scoreboard.SetBest(GetBest(count));
         FixNext();
+    }
+
+    void ResetVariables()
+    {
+        cost = 0;
+        scoreboard.SetCost(cost);
+        scoreboard.SetBest(GetBest(count));
+        maximumSoFar = 0;
+        won = false;
+        nextStepHint = false;
+    }
+
+    public void Reset()
+    {
+        foreach (GameObject g in pillarObjects)
+            Destroy(g);
+        sourceCell.SetActive(true);
+        Awake();
     }
 
     float pillarWidth;
@@ -43,10 +58,12 @@ public class Pillars : MonoBehaviour
         start += Vector3.left * pillarWidth * 0.5f * (count + 4);
 
         pillarCovers = new PillarCover[count + 4];
+        pillarObjects = new GameObject[count + 4];
         for (int i = 0; i < pillarCovers.Length - 0; i++)
         {
             Vector3 offset = i * Vector3.right * pillarWidth;
             GameObject cell = Object.Instantiate(sourceCell, start + offset, sourceCell.transform.rotation, transform);
+            pillarObjects[i] = cell;
             
             PillarCover pillarCover = cell.GetComponentInChildren<PillarCover>();
             pillarCovers[i] = pillarCover;
@@ -58,6 +75,17 @@ public class Pillars : MonoBehaviour
         pillarCovers[1].transform.parent.parent.parent.gameObject.SetActive(false);
         pillarCovers[pillarCovers.Length - 2].transform.parent.parent.parent.gameObject.SetActive(false);
         pillarCovers[pillarCovers.Length - 1].transform.parent.parent.parent.gameObject.SetActive(false);
+    }
+
+    void MakeHeights()
+    {
+        heights = new float[count + 4];
+        for (int i = 0; i < heights.Length; i++)
+            heights[i] = float.NaN;
+        heights[0] = 0f;
+        heights[1] = MIN_HEIGHT;
+        heights[heights.Length - 2] = MIN_HEIGHT;
+        heights[heights.Length - 1] = 0f;
     }
 
     float MAX_HEIGHT = 1f, MIN_HEIGHT = 0.001f;
@@ -79,7 +107,6 @@ public class Pillars : MonoBehaviour
         return index;
     }
 
-    int cost = 0;
     public void Collapse(int index)
     {
         float height = -1f;
@@ -171,7 +198,6 @@ public class Pillars : MonoBehaviour
         return iterations;
     }
 
-    float maximumSoFar = 0;
     public void Reveal(int index)
     {
         Collapse(index);
@@ -185,8 +211,8 @@ public class Pillars : MonoBehaviour
             Transform cell = pillarCover.transform.parent.parent.parent;
             maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, oldPosition.y, oldPosition.z);
             maximumSoFar = height;
-            Debug.Log(oldPosition);
-            Debug.Log(cell.localPosition.x);
+            // Debug.Log(oldPosition);
+            // Debug.Log(cell.localPosition.x);
         }
         if (_hideHint)
             HideBadPillars();
@@ -227,7 +253,6 @@ public class Pillars : MonoBehaviour
         FixNext();
     }
 
-    public bool won = false;
     public void CheckWin()
     {
         if (won) return;
@@ -260,7 +285,6 @@ public class Pillars : MonoBehaviour
     }
 
 
-    int nextIndex = -1;
     void HideNext()
     {
         if (nextIndex != -1)

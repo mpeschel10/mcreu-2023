@@ -5,6 +5,17 @@ using UnityEngine.XR;
 
 public class GameControllerState : MonoBehaviour
 {
+    // private static MenuLocation _menuLocation;
+
+    // public static MenuLocation menuLocation
+    // {
+    //     get { return _menuLocation; }
+    //     set
+    //     {
+    //         Debug.Log("Changing _menuLocation from " + _menuLocation + " to " + value);
+    //         _menuLocation = value;
+    //     }
+    // }
     public static MenuLocation menuLocation;
 
     private static bool _isXR_initialized = false;
@@ -32,5 +43,18 @@ public class GameControllerState : MonoBehaviour
             Debug.LogError("Something went wrong fetching IsXR. This may be because you accessed isXR during Awake() before Start() when XR system is NOT initialized.");
             throw e;
         }
+    }
+
+    // This feels unclean, but it is apparently the canonical way to implement having one unique object.
+    private static bool isFirst = true;
+    void Awake()
+    {
+        if (!isFirst)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        isFirst = false;
+        DontDestroyOnLoad(gameObject);
     }
 }

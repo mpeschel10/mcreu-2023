@@ -14,6 +14,11 @@ public class EscapeToggle : MonoBehaviour
         actionReference.action.Enable();
         Fix();
     }
+
+    void OnDestroy()
+    {
+        actionReference.action.performed -= OnAction;
+    }
     void OnAction(InputAction.CallbackContext context) { Toggle(); }
     public void Toggle()
     {
