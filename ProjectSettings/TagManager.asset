@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PositionMarker
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Physics interactors do not get grabbed
   - Physics interactable
   - Ruler Plane
-  - 
+  - Blocks Selection
   - 
   - 
   - 

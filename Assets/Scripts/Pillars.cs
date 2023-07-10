@@ -30,8 +30,8 @@ public class Pillars : MonoBehaviour
     void ResetVariables()
     {
         cost = 0;
-        scoreboard.SetCost(cost);
-        scoreboard.SetBest(GetBest(count));
+        scoreboard.cost = cost;
+        scoreboard.best = GetBest(count);
         maximumSoFar = 0;
         won = false;
         nextStepHint = false;
@@ -107,6 +107,14 @@ public class Pillars : MonoBehaviour
         return index;
     }
 
+    public static float Interpolate(int index, int leftIndex, int rightIndex, float leftHeight, float rightHeight)
+    {
+        float span = rightIndex - leftIndex;
+        // Debug.Log("Span: " + span);
+        float deltaH = (rightHeight - leftHeight) / span;
+        // Debug.Log("delta height: " + deltaH);
+        return deltaH * (index - leftIndex) + leftHeight;
+    }
     public void Collapse(int index)
     {
         float height = -1f;
@@ -126,12 +134,19 @@ public class Pillars : MonoBehaviour
             int spanIfBetween = right > left ? rightEdgeBoundary - index - 1 : index - leftEdgeBoundary - 1;
             //int spanIfBelow; // This is always <= spanIfBetween, but might add flavor if I have time to implement it.
 
-            if (spanIfAbove > spanIfBetween)
+            if (spanIfAbove >= spanIfBetween)
             {
-                height = System.Math.Max(right, left) + 0.1f;
-            } else {
-                height = (right + left) / 2;
+                bool closerToRight = rightEdgeBoundary - index < index - leftEdgeBoundary;
+                if (closerToRight)
+                {
+                    leftRegionBoundary += 1;
+                    left = MAX_HEIGHT;
+                } else {
+                    rightRegionBoundary -= 1;
+                    right = MAX_HEIGHT;
+                }
             }
+            height = Interpolate(index, leftRegionBoundary, rightRegionBoundary, left, right);
         }
         heights[index] = height;
     }
@@ -248,7 +263,7 @@ public class Pillars : MonoBehaviour
             }
         }
 
-        scoreboard.SetCost(cost);
+        scoreboard.cost = cost;
         CheckWin();
         FixNext();
     }

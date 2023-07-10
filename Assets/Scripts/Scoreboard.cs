@@ -3,36 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Scoreboard : MonoBehaviour
+public class Scoreboard : MonoBehaviour, Fixable
 {
     [SerializeField] TMP_Text[] displays;
-    int cost = 0;
-    int best = -1;
-    private string _text;
-    public string text
+    int _cost = 0;
+    public int cost
     {
-        get { return _text; }
-        set { _text = value; UpdateDisplay(); }
+        get => _cost;
+        set { _cost = value; Fix(); }
     }
-    public void SetCost(int cost)
+    int _best = 0;
+    public int best
     {
-        this.cost = cost;
-        UpdateText();
+        get => _best;
+        set { _best = value; Fix(); }
     }
+    string text;
 
-    public void SetBest(int best)
-    {
-        this.best = best;
-        UpdateText();
-    }
-
-    public void UpdateText()
+    public void Fix()
     {
         text = "Cost: " + cost + "\nBest: " + best;
-    }
-
-    public void UpdateDisplay()
-    {
         foreach (TMP_Text display in displays)
         {
             display.text = text;

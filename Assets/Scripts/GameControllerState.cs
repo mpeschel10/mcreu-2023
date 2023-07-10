@@ -45,16 +45,29 @@ public class GameControllerState : MonoBehaviour
         }
     }
 
-    // This feels unclean, but it is apparently the canonical way to implement having one unique object.
-    private static bool isFirst = true;
+    // The frickin' tag system doesn't let you search for inactive objects,
+    // so keep a reference to the inactive positionMarker convenient. I guess I'm supposed to use a prefab instead.
+    public static GameObject positionMarker;
+    public static GameControllerState oneTrueInstance;
+    void Fix()
+    {
+        GameObject candidateObject = GameObject.FindGameObjectWithTag("PositionMarker");
+        if (candidateObject != null)
+        {
+            positionMarker = candidateObject;
+            positionMarker.SetActive(false);
+        }
+    }
     void Awake()
     {
-        if (!isFirst)
+        if (oneTrueInstance != null)
         {
+            oneTrueInstance.Fix();
             Destroy(gameObject);
             return;
         }
-        isFirst = false;
+        oneTrueInstance = this;
         DontDestroyOnLoad(gameObject);
+        Fix();
     }
 }

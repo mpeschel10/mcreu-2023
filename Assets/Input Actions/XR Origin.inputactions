@@ -47,8 +47,30 @@
                 },
                 {
                     "name": "",
+                    "id": "c5c008fd-166a-4751-a724-b1a78ebb0293",
+                    "path": "<OpenXRHmd>/centerEyePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ccba5fa9-246b-4e0f-ba39-ae224fb1f002",
                     "path": "<XRHMD>/centerEyeRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9b59340-ae47-4f82-8b2d-91aa4ac249ef",
+                    "path": "<OpenXRHmd>/centerEyeRotation",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

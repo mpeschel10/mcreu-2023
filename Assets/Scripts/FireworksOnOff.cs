@@ -2,27 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireworksOnOff : MonoBehaviour
+public class FireworksOnOff : MonoBehaviour, Fixable
 {
     [SerializeField] ParticleSystem[] launchers;
+
+    public void Awake()
+    {
+        Fix();
+    }
     
-    bool fireworksEnabled = false;
     public void OnEnable()
     {
-        fireworksEnabled = true; Apply();
+        Fix();
     }
 
     public void OnDisable()
     {
-        fireworksEnabled = false; Apply();
+        Fix();
     }
 
-    public void Apply()
+    public void Fix()
     {
         foreach (ParticleSystem launcher in launchers)
         {
             ParticleSystem.EmissionModule module = launcher.emission;
-            module.enabled = fireworksEnabled;
+            module.enabled = enabled;
         }
-}
+    }
 }

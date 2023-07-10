@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LessBadXRPokeInteractor : MonoBehaviour
+public class MyPoker : MonoBehaviour
 {
     [SerializeField] Collider pokeCollider;
     [SerializeField] AnimateHands state;

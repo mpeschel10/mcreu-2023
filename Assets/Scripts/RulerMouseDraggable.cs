@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RulerMouseDraggable : MonoBehaviour, MouseSelector.Draggable
+public class RulerMouseDraggable : MonoBehaviour, MouseSelector.Draggable, Fixable
 {
     void Start() {
         enabled = false;

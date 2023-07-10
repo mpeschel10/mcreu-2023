@@ -19,6 +19,7 @@ public class MouseSelector : MonoBehaviour
             DoOutlines(raycastHit);
             DoClicks(raycastHit);
             DoDrags(raycastHit);
+            DoSmearClicks(raycastHit);
         } else {
             // Putting the outline removal code here is hacky and bad. I don't know how I can fix this.
             if (hoverable != null)
@@ -46,9 +47,15 @@ public class MouseSelector : MonoBehaviour
         public void Click();
     }
 
+    public interface SmearClickable {
+        public void Click();
+    }
+
     Hoverable hoverable;
     void DoOutlines(RaycastHit hitInfo)
     {
+        // Debug.Log("Doing outlines.");
+        // Debug.Log("Hit info collider: " + hitInfo.collider);
         if ((hoverable == null && hitInfo.collider == null) ||
             (hitInfo.collider != null && hoverable != null && hitInfo.collider.gameObject == hoverable.GetGameObject()))
             return; // Nothing has changed, so don't flip-flop the outline.
@@ -69,17 +76,33 @@ public class MouseSelector : MonoBehaviour
             {
                 hoverable.Hover();
             } else  {
-                Debug.LogError("gameObject " + hitInfo.collider.gameObject + " on selectable layer has no Hoverable");
+                // Debug.LogError("gameObject " + hitInfo.collider.gameObject + " on selectable layer has no Hoverable");
             }
         }
     }
 
+    bool shouldSmear = false;
     void DoClicks(RaycastHit hitInfo)
     {
         if (hitInfo.collider != null && Input.GetMouseButtonDown(0))
         {
             GameObject gameObject = hitInfo.collider.gameObject;
             if (gameObject.TryGetComponent(out Clickable clickable))
+            {
+                clickable.Click();
+                shouldSmear = gameObject.TryGetComponent(out SmearClickable _);
+            } else {
+                return;
+            }
+        } else {
+        }
+    }
+    void DoSmearClicks(RaycastHit hitInfo)
+    {
+        if (hitInfo.collider != null && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0) && shouldSmear)
+        {
+            GameObject gameObject = hitInfo.collider.gameObject;
+            if (gameObject.TryGetComponent(out SmearClickable clickable))
             {
                 clickable.Click();
             } else {
