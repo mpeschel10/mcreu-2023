@@ -1046,6 +1046,8 @@ Transform:
   - {fileID: 3157247215260493145}
   - {fileID: 7212117130307892505}
   - {fileID: 2425129795706893250}
+  - {fileID: 5856062398636617819}
+  - {fileID: 6492047826657046917}
   m_Father: {fileID: 1595165159780398096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 90}
@@ -1086,8 +1088,6 @@ Transform:
   m_Children:
   - {fileID: 1595165159597121463}
   - {fileID: 8422678184171777280}
-  - {fileID: 6492047826657046917}
-  - {fileID: 5856062398636617819}
   m_Father: {fileID: 1595165159845286176}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1734,9 +1734,9 @@ GameObject:
   - component: {fileID: 6492047826657046917}
   - component: {fileID: 6674655834816019961}
   - component: {fileID: 2966685054986462639}
-  - component: {fileID: 808936784272003731}
   - component: {fileID: 6870670822439817260}
   - component: {fileID: 2885332068815670946}
+  - component: {fileID: 5821763732881104004}
   m_Layer: 8
   m_Name: Poke Point
   m_TagString: Untagged
@@ -1751,14 +1751,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2417370901295226334}
-  m_LocalRotation: {x: -0.5, y: 0.50000006, z: -0.50000006, w: -0.5}
-  m_LocalPosition: {x: -0.012100041, y: 0.018599987, z: 0.022599995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1726, y: 0.012100011, z: 0.02009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7621249827315693010}
-  m_Father: {fileID: 1595165159780398096}
-  m_RootOrder: 2
+  m_Father: {fileID: 1595165159597121463}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6674655834816019961
 MeshFilter:
@@ -1810,19 +1810,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &808936784272003731
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2417370901295226334}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.006
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6870670822439817260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,7 +1822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20ae39ad0ab5bd459100111cc19e326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokeCollider: {fileID: 808936784272003731}
   state: {fileID: 1595165159780398105}
 --- !u!114 &2885332068815670946
 MonoBehaviour:
@@ -1855,6 +1841,20 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!136 &5821763732881104004
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417370901295226334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.005724728
+  m_Height: 0.07489255
+  m_Direction: 0
+  m_Center: {x: 0.030542731, y: 0.0005449597, z: -0.0007215142}
 --- !u!1 &3282141893320718693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,9 +2051,9 @@ GameObject:
   - component: {fileID: 7114084082620801298}
   - component: {fileID: 4543580377209886615}
   - component: {fileID: 640462385760409114}
-  - component: {fileID: 5489017168157812085}
   - component: {fileID: 3141344148997497308}
   - component: {fileID: 8424216737125061906}
+  - component: {fileID: 5871559794769152914}
   m_Layer: 8
   m_Name: Poke Point
   m_TagString: Untagged
@@ -2127,19 +2127,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5489017168157812085
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4949936631351966821}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.006
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3141344148997497308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2152,7 +2139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20ae39ad0ab5bd459100111cc19e326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokeCollider: {fileID: 5489017168157812085}
   state: {fileID: 1595165158456804310}
 --- !u!114 &8424216737125061906
 MonoBehaviour:
@@ -2172,6 +2158,20 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!136 &5871559794769152914
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949936631351966821}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.005724728
+  m_Height: 0.07489255
+  m_Direction: 0
+  m_Center: {x: 0.030542731, y: 0.0005449597, z: -0.0007215142}
 --- !u!1 &5401411802405641644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,8 +2195,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5401411802405641644}
-  m_LocalRotation: {x: -0.56470585, y: 0.4255671, z: -0.5647058, w: -0.4255671}
-  m_LocalPosition: {x: -0.07417552, y: 0.019663095, z: -0.049484055}
+  m_LocalRotation: {x: -0.000000014901163, y: -0.99027294, z: 0.13913876, w: 0}
+  m_LocalPosition: {x: -0.100515954, y: 0.07417552, z: 0.019663095}
   m_LocalScale: {x: 0.14649566, y: 0.071402036, z: 0.078004204}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2302,7 +2302,7 @@ MonoBehaviour:
   pinchPoint: {fileID: 4625026129650984912}
   pinchables:
     serializedVersion: 2
-    m_Bits: 1271
+    m_Bits: 5303
   select: 0
   action: 0
 --- !u!1 &8273306377159529849
@@ -2329,8 +2329,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273306377159529849}
-  m_LocalRotation: {x: -0.56470585, y: 0.42556706, z: -0.56470585, w: -0.42556706}
-  m_LocalPosition: {x: -0.03189999, y: 0.0032999516, z: -0.04609999}
+  m_LocalRotation: {x: -0, y: -0.9902729, z: 0.13913874, w: 0}
+  m_LocalPosition: {x: -0.1039, y: 0.03189999, z: 0.0032999516}
   m_LocalScale: {x: 0.14649566, y: 0.071402036, z: 0.078004204}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2597,8 +2597,8 @@ Transform:
   m_Children:
   - {fileID: 3933878457452358370}
   - {fileID: 1644151417956760425}
-  m_Father: {fileID: 1595165159780398096}
-  m_RootOrder: 3
+  m_Father: {fileID: 1595165159597121463}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5196116627473194450
 MonoBehaviour:
@@ -2620,7 +2620,7 @@ MonoBehaviour:
   pinchPoint: {fileID: 1644151417956760425}
   pinchables:
     serializedVersion: 2
-    m_Bits: 1271
+    m_Bits: 5303
   select: 0
   action: 0
 --- !u!1001 &948464543434038481

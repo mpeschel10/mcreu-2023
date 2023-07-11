@@ -32,6 +32,8 @@ public class MouseSelector : MonoBehaviour
                 hoverable = null;
             }
         }
+        if (Input.GetMouseButtonUp(0))
+            shouldSmear = false;
     }
 
     public interface Hoverable {

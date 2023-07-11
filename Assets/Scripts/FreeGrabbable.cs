@@ -6,28 +6,27 @@ public class FreeGrabbable : MonoBehaviour, MyGrabber.Grabbable, Fixable
 {
     Transform originalParent;
     MyGrabber grabber;
-    void Start()
+    void Awake()
     {
         originalParent = transform.parent;
     }
-    public void Grab(MyGrabber grabber) {
-        Ungrab();
+    public void Grab(MyGrabber grabber)
+    {
+        if (this.grabber != null)
+        {
+            this.grabber.OnUngrab();
+        }
         this.grabber = grabber;
         Fix();
     }
-
-    public void Fix()
+    public void Ungrab() // idempotent
+    {
+        grabber = null;
+        Fix();
+    }
+    public void Fix() // idempotent
     {
         transform.SetParent(grabber != null ? grabber.transform : originalParent);
     }
 
-    public void Ungrab()
-    {
-        if (grabber != null)
-        {
-            grabber.UngrabCleanup();
-            grabber = null;
-        }
-        Fix();
-    }
 }

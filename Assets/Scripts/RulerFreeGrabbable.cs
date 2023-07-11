@@ -14,7 +14,10 @@ public class RulerFreeGrabbable : MonoBehaviour, MyGrabber.Grabbable
     }
     
     public void Grab(MyGrabber grabber) {
-        Ungrab();
+        if (this.grabber != null)
+        {
+            this.grabber.OnUngrab();
+        }
         this.grabber = grabber;
         Fix();
     }
@@ -23,19 +26,16 @@ public class RulerFreeGrabbable : MonoBehaviour, MyGrabber.Grabbable
         mainDraggable.Fix();
     }
 
-    void Fix()
+    public void Ungrab() // Idempotent
+    {
+        grabber = null;
+        Fix();
+    }
+    
+    void Fix() // Idempotent
     {
         transform.SetParent(grabber != null ? grabber.transform : tableTransform);
         enabled = grabber != null;
     }
     
-    public void Ungrab()
-    {
-        if (this.grabber != null)
-        {
-            grabber.UngrabCleanup();
-            grabber = null;
-        }
-        Fix();
-    }
 }

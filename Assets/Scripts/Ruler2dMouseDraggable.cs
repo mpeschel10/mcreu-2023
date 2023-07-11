@@ -21,28 +21,70 @@ public class Ruler2dMouseDraggable : MonoBehaviour, Fixable
     
     public void Fix()
     {
-        frontCorner.transform.position = barGeometry.GetPrimaryEnd();
-        backCorner.transform.position = barGeometry.GetSecondaryEnd();
-        frontCorner.transform.rotation = transform.rotation;
-        backCorner.transform.rotation = Quaternion.LookRotation(transform.right * -1, transform.up);
-        frontBar.barGeometry.AlignBackCorner(this);
-        frontBar.FixFrontCorner();
-        backBar.barGeometry.AlignFrontCorner(this);
-        backBar.FixBackCorner();
-        oppositeBar.barGeometry.AlignToEndpoints(frontBar.frontCorner, backBar.backCorner);
+        FixCorners();
+        frontBar.FixFromBackCornerAndFrontBarPlane();
+        backBar.FixFromFrontCornerAndBackBarPlane();
+        oppositeBar.FixBar();
         foreach (Ruler2dReticle reticle in rulerState.reticles)
         {
             reticle.Fix();
         }
     }
 
+    public void FixFromBackCornerAndFrontBarPlane()
+    {
+        Vector3 newBackPosition = backCorner.transform.position;
+        Vector3 idealOffset = frontBar.transform.position - newBackPosition;
+        Vector3 newOffset = Vector3.Project(idealOffset, backCorner.transform.right);
+        Vector3 newFrontPosition = newBackPosition + newOffset;
+        
+        frontCorner.transform.position = newFrontPosition;
+        frontCorner.transform.rotation = Quaternion.LookRotation(forward: backCorner.transform.right, upwards: backCorner.transform.up);
+        FixBar();
+    }
+    public void FixFromFrontCornerAndBackBarPlane()
+    {
+        Vector3 newFrontPosition = frontCorner.transform.position;
+        Vector3 idealOffset = backBar.transform.position - newFrontPosition;
+        Vector3 newOffset = Vector3.Project(idealOffset, frontCorner.transform.forward * -1);
+        Vector3 newBackPosition = newFrontPosition + newOffset;
+        
+        backCorner.transform.position = newBackPosition;
+        backCorner.transform.rotation = Quaternion.LookRotation(forward: frontCorner.transform.right * -1, upwards: frontCorner.transform.up);
+        FixBar();
+    }
+
+    public void XRFixPrimary()
+    {
+        Vector3 secondaryOffset = oppositeBar.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(forward: secondaryOffset, upwards: transform.up) * Quaternion.Euler(0, 270, 0);
+        FixCorners();
+        Vector3 myBack = transform.forward * -1;
+        oppositeBar.transform.rotation = Quaternion.LookRotation(forward: myBack, upwards: transform.up);
+        oppositeBar.FixCorners();
+        frontBar.FixBar();
+        backBar.FixBar();
+        foreach (Ruler2dReticle reticle in rulerState.reticles)
+        {
+            reticle.Fix();
+        }
+    }
+
+    public void FixCorners()
+    {
+        FixFrontCorner();
+        FixBackCorner();
+    }
+
     public void FixFrontCorner()
     {
         frontCorner.transform.position = barGeometry.GetFrontEnd();
+        frontCorner.transform.rotation = transform.rotation;
     }
     public void FixBackCorner()
     {
         backCorner.transform.position = barGeometry.GetBackEnd();
+        backCorner.transform.rotation = Quaternion.LookRotation(transform.right * -1, transform.up);
     }
 
     public void FixBar()

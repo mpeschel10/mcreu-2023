@@ -52,7 +52,7 @@ public class MouseDraggable : MonoBehaviour, MouseSelector.Draggable
     
     public void Ungrab()
     {
-        Debug.Log("Ungrab ruler part " + gameObject);
+        // Debug.Log("Ungrab " + gameObject);
         enabled = false;
     }
 }

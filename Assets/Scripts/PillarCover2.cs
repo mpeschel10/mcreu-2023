@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PillarCover2 : MonoBehaviour, Fixable, MouseSelector.Clickable, MouseSelector.SmearClickable//, LessBadXRPokeInteractor.Pokeable
+public class PillarCover2 : MonoBehaviour, Fixable, MouseSelector.Clickable, MouseSelector.SmearClickable, MyPoker.Pokeable
 {
     [SerializeField] Pillars2D pillars2d;
     [SerializeField] public GameObject coverParent, pillarParent, cellParent, pillar;
@@ -35,4 +35,5 @@ public class PillarCover2 : MonoBehaviour, Fixable, MouseSelector.Clickable, Mou
     }
     
     public void Click() { pillars2d.Click(r, c); }
+    public void Poke() { Click(); }
 }

@@ -15,8 +15,9 @@ public class HingeGrabbable : MonoBehaviour, MyGrabber.Grabbable
     }
     public void Grab(MyGrabber grabber)
     {
-        Debug.Log("HingeGrabbable grab");
-        Ungrab();
+        // Debug.Log("HingeGrabbable grab");
+        if (this.grabber != null)
+            this.grabber.OnUngrab();
         this.grabber = grabber;
         Fix();
         Vector3 intersection = GetComponent<Collider>().ClosestPoint(grabberTransform.position);
@@ -29,17 +30,14 @@ public class HingeGrabbable : MonoBehaviour, MyGrabber.Grabbable
         rotationFromFacingToIntersection = rotationFromReferenceToIntersection * Quaternion.Inverse(rotationFromReferenceToFacing);
     }
 
-    public void Ungrab() {
-        Debug.Log("HingeGrabbable ungrab");
-        if (grabber != null)
-        {
-            grabber.UngrabCleanup();
-            grabber = null;
-        }
+    public void Ungrab() // Idempotent
+    {
+        // Debug.Log("HingeGrabbable ungrab");
+        grabber = null;
         Fix();
     }
 
-    public void Fix()
+    public void Fix() // Idempotent
     {
         grabberTransform = grabber?.transform;
         enabled = grabber != null;

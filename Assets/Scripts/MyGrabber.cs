@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class MyGrabber : MonoBehaviour
 {
     [SerializeField] InputActionReference selectReference, actionReference;
-    [SerializeField] Transform trigger, pinchPoint;
+    [SerializeField] Transform trigger;
+    [SerializeField] public Transform pinchPoint;
     [SerializeField] LayerMask pinchables;
     void Awake()
     {
@@ -30,16 +31,23 @@ public class MyGrabber : MonoBehaviour
     Collider GetNearest()
     {
         float bestDistance = float.PositiveInfinity;
+        int bestPriority = int.MaxValue;
         Collider bestCollider = null;
         Collider[] colliders = Physics.OverlapBox(trigger.position, trigger.localScale / 2, trigger.rotation, pinchables);
+        // Debug.Log("Finding closest grabbable among " + colliders.Length + " colldiers");
         foreach(Collider collider in colliders)
         {
+            int priority = 10;
+            if (collider.gameObject.TryGetComponent(out GrabPriority p))
+                priority = p.Main();
+            if (priority > bestPriority) continue;
+
             Vector3 offset = collider.ClosestPoint(pinchPoint.position) - pinchPoint.position;
-            if (offset.magnitude < bestDistance)
-            {
-                bestDistance = offset.magnitude;
-                bestCollider = collider;
-            }
+            if (offset.magnitude > bestDistance) continue;
+            
+            bestPriority = priority;
+            bestDistance = offset.magnitude;
+            bestCollider = collider;
         }
         return bestCollider;
     }
@@ -79,6 +87,7 @@ public class MyGrabber : MonoBehaviour
     Grabbable grabbed;
     public void OnGrab()
     {
+        OnUngrab();
         // Debug.Log("Grab started");
         Collider grabbedCollider = GetNearest();
         if (grabbedCollider == null)
@@ -86,22 +95,25 @@ public class MyGrabber : MonoBehaviour
             // Debug.Log("Grab fail since no grabbable colliders found.");
             return;
         }
+        
         // Debug.Log("Trying to grab collider " + grabbedCollider);
         grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
+        if (grabbed == null)
+        {
+            Debug.LogError(gameObject + " tried to grab object " + grabbedCollider.gameObject + " but could not find Grabbable in object or parent.");
+            return;
+        }
+        
         grabbed.Grab(this);
     }
 
-    public void OnUngrab()
+    public void OnUngrab() // Idempotent
     {
-        // Debug.Log("MyGrabber ungrab '" + grabbed + "'");
+        // Debug.Log("MyGrabber " + gameObject + " ungrab '" + grabbed + "'");
         if (grabbed != null)
         {
             grabbed.Ungrab();
+            grabbed = null;
         }
-    }
-
-    public void UngrabCleanup()
-    {
-        grabbed = null;
     }
 }
