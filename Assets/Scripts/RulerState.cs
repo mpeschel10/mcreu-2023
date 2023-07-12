@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RulerState : MonoBehaviour
+public class RulerState : MonoBehaviour, MyGrabber.Grabbable
 {
     public Ruler2dCornerMouseDraggable[] corners;
     public Ruler2dMouseDraggable[] bars;
@@ -13,28 +13,30 @@ public class RulerState : MonoBehaviour
         get => cellScale.lossyScale.x;
     }
 
-    public Ruler2dGrabbable primaryIntent, secondaryIntent;
-    public void Grab(MyGrabber grabber, Ruler2dGrabbable segment)
+    public MyGrabber primaryGrabber, secondaryGrabber;
+    public void Grab(MyGrabber grabber)
     {
-        if (primaryIntent == null)
+        if (primaryGrabber == null)
         {
-            primaryIntent = segment;
+            primaryGrabber = grabber;
             Fix();
             return;
         }
 
-        // Since we have only two hands, assume secondaryIntent must be null
-        // primaryIntent != null && secondaryIntent == null.
-        secondaryIntent = segment;
+        // Since we have only two hands, assume secondaryGrabber must be null
+        // primaryGrabber != null && secondaryGrabber == null.
+        secondaryGrabber = grabber;
         Fix();
     }
 
-    public void Ungrab(Ruler2dGrabbable segment)
+    public void Ungrab(MyGrabber grabber)
     {
-        // Assume primaryIntent != null && (segment == primaryIntent ^ segment == secondaryIntent)
-        if (segment == primaryIntent)
-            primaryIntent = secondaryIntent;
-        secondaryIntent = null;
+        // Assume primaryGrabber != null && (segment == primaryGrabber ^ segment == secondaryGrabber)
+        if (grabber == primaryGrabber)
+        {
+            primaryGrabber = secondaryGrabber;
+        } // else (grabber == secondaryGrabber)
+        secondaryGrabber = null;
         Fix();
     }
 
@@ -118,31 +120,31 @@ public class RulerState : MonoBehaviour
     Transform primaryOriginalParent, secondaryOriginalParent;
     public void Fix()
     {
-        if (primaryIntent == null || secondaryIntent == null)
+        if (primaryGrabber == null || secondaryGrabber == null)
         {
             primaryTarget = null;
             secondaryTarget = null;
             enabled = false;
-            if (primaryIntent == null)
+            if (primaryGrabber == null)
             {
                 transform.SetParent(originalParent);
             }
-            else if (primaryIntent != null && secondaryIntent == null)
+            else if (primaryGrabber != null && secondaryGrabber == null)
             {
-                transform.SetParent(primaryIntent.grabber.transform);
+                transform.SetParent(primaryGrabber.transform);
             }
         }
-        else // primaryIntent != null && secondaryIntent != null
+        else // primaryGrabber != null && secondaryGrabber != null
         {
             transform.SetParent(originalParent);
 
-            Vector3   primaryPosition =   primaryIntent.grabber.pinchPoint.transform.position;
-            Vector3 secondaryPosition = secondaryIntent.grabber.pinchPoint.transform.position;
+            Vector3   primaryPosition =   primaryGrabber.pinchPoint.transform.position;
+            Vector3 secondaryPosition = secondaryGrabber.pinchPoint.transform.position;
 
             (primaryTarget, secondaryTarget) = AssignOpposingBars(primaryPosition, secondaryPosition);
             
-              primaryTarget.transform.SetParent(  primaryIntent.grabber.transform);
-            secondaryTarget.transform.SetParent(secondaryIntent.grabber.transform);
+              primaryTarget.transform.SetParent(  primaryGrabber.transform);
+            secondaryTarget.transform.SetParent(secondaryGrabber.transform);
 
             enabled = true;
         }

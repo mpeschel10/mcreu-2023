@@ -30,10 +30,10 @@ public class HingeGrabbable : MonoBehaviour, MyGrabber.Grabbable
         rotationFromFacingToIntersection = rotationFromReferenceToIntersection * Quaternion.Inverse(rotationFromReferenceToFacing);
     }
 
-    public void Ungrab() // Idempotent
+    public void Ungrab(MyGrabber grabber) // Idempotent
     {
         // Debug.Log("HingeGrabbable ungrab");
-        grabber = null;
+        this.grabber = null;
         Fix();
     }
 

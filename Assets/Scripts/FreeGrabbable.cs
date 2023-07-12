@@ -19,9 +19,9 @@ public class FreeGrabbable : MonoBehaviour, MyGrabber.Grabbable, Fixable
         this.grabber = grabber;
         Fix();
     }
-    public void Ungrab() // idempotent
+    public void Ungrab(MyGrabber grabber) // idempotent
     {
-        grabber = null;
+        this.grabber = null;
         Fix();
     }
     public void Fix() // idempotent

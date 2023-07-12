@@ -26,9 +26,9 @@ public class RulerFreeGrabbable : MonoBehaviour, MyGrabber.Grabbable
         mainDraggable.Fix();
     }
 
-    public void Ungrab() // Idempotent
+    public void Ungrab(MyGrabber grabber) // Idempotent
     {
-        grabber = null;
+        this.grabber = null;
         Fix();
     }
     

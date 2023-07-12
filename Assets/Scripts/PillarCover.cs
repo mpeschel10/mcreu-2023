@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PillarCover : MonoBehaviour, MouseSelector.Clickable, MyPoker.Pokeable
+public class PillarCover : MonoBehaviour, MouseSelector.Clickable, MouseSelector.SmearClickable, MyPoker.Pokeable
 {
     public GameObject pillar, pillarOffset;
     [SerializeField] TMP_Text textFront, textBack;

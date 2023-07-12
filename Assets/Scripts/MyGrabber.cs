@@ -55,7 +55,7 @@ public class MyGrabber : MonoBehaviour
     public interface Grabbable
     {
         public void Grab(MyGrabber grabber);
-        public void Ungrab();
+        public void Ungrab(MyGrabber grabber);
     }
 
     public int select, action = 0;
@@ -88,15 +88,15 @@ public class MyGrabber : MonoBehaviour
     public void OnGrab()
     {
         OnUngrab();
-        // Debug.Log("Grab started");
+        Debug.Log("Grab started");
         Collider grabbedCollider = GetNearest();
         if (grabbedCollider == null)
         {
-            // Debug.Log("Grab fail since no grabbable colliders found.");
+            Debug.Log("Grab fail since no grabbable colliders found.");
             return;
         }
         
-        // Debug.Log("Trying to grab collider " + grabbedCollider);
+        Debug.Log("Trying to grab collider " + grabbedCollider);
         grabbed = grabbedCollider.GetComponentInParent<Grabbable>();
         if (grabbed == null)
         {
@@ -109,10 +109,10 @@ public class MyGrabber : MonoBehaviour
 
     public void OnUngrab() // Idempotent
     {
-        // Debug.Log("MyGrabber " + gameObject + " ungrab '" + grabbed + "'");
+        Debug.Log("MyGrabber " + gameObject + " ungrab '" + grabbed + "'");
         if (grabbed != null)
         {
-            grabbed.Ungrab();
+            grabbed.Ungrab(this);
             grabbed = null;
         }
     }
