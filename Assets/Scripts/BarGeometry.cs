@@ -8,7 +8,7 @@ public class BarGeometry : MonoBehaviour
     GameObject endMarker;
     GameObject endMarker1, endMarker2;
 
-    void Start()
+    void Awake()
     {
         cube = GetComponentInChildren<BoxCollider>().gameObject;
         // endMarker = GameObject.FindGameObjectWithTag("PositionMarker");

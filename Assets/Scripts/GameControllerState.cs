@@ -5,18 +5,8 @@ using UnityEngine.XR;
 
 public class GameControllerState : MonoBehaviour
 {
-    // private static MenuLocation _menuLocation;
-
-    // public static MenuLocation menuLocation
-    // {
-    //     get { return _menuLocation; }
-    //     set
-    //     {
-    //         Debug.Log("Changing _menuLocation from " + _menuLocation + " to " + value);
-    //         _menuLocation = value;
-    //     }
-    // }
     public static MenuLocation menuLocation;
+    public static ActiveCamera activeCamera;
 
     private static bool _isXR_initialized = false;
     private static bool _isXR = false;

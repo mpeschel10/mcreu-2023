@@ -34,8 +34,8 @@ public class Pillars2D : MonoBehaviour
         float pillarWidth = 1 / 32f;
 
         Vector3 backLeft = sourceCell.transform.position;
-        backLeft += Vector3.left * (gridWidth + 2) * 0.5f * pillarWidth;
-        backLeft += Vector3.back * (gridHeight + 2) * 0.5f * pillarWidth;
+        backLeft += sourceCell.transform.right * -1 * (gridWidth + 1) * 0.5f * pillarWidth;
+        backLeft += sourceCell.transform.forward * -1 * (gridHeight + 1) * 0.5f * pillarWidth;
         Quaternion q = sourceCell.transform.rotation;
 
         for (int r = 0; r < heights.Length; r++)

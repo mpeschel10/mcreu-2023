@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/1D Peak Finder.unity
     guid: 791c059f0aa3b5044a00f4b6f6c81015
+  - enabled: 1
+    path: Assets/Scenes/2D Peak Finder.unity
+    guid: 2c5ef2c33c71aed4da71c265c1308065
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e2b9dfcac8ee5b54e9a2dc654fb7cbb5,
       type: 2}

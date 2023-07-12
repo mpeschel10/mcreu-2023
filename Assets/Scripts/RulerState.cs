@@ -13,6 +13,13 @@ public class RulerState : MonoBehaviour, MyGrabber.Grabbable
         get => cellScale.lossyScale.x;
     }
 
+    public int GetCornerIndex(Ruler2dCornerMouseDraggable d) { return System.Array.IndexOf(corners, d); }
+    public Ruler2dCornerMouseDraggable GetOpposite(Ruler2dCornerMouseDraggable d)
+    {
+        if (d.index == -1) d.index = GetCornerIndex(d);
+        return corners[(d.index + 2) % 4];
+    }
+
     public MyGrabber primaryGrabber, secondaryGrabber;
     public void Grab(MyGrabber grabber)
     {

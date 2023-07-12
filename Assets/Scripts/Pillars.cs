@@ -55,13 +55,13 @@ public class Pillars : MonoBehaviour
         scaleCell.transform.localScale = new Vector3(pillarWidth, oldScale.y, oldScale.z);
         
         Vector3 start = sourceCell.transform.position;
-        start += Vector3.left * pillarWidth * 0.5f * (count + 4);
+        start += sourceCell.transform.right * -1 * pillarWidth * 0.5f * (count + 4);
 
         pillarCovers = new PillarCover[count + 4];
         pillarObjects = new GameObject[count + 4];
         for (int i = 0; i < pillarCovers.Length - 0; i++)
         {
-            Vector3 offset = i * Vector3.right * pillarWidth;
+            Vector3 offset = i * sourceCell.transform.right * pillarWidth;
             GameObject cell = Object.Instantiate(sourceCell, start + offset, sourceCell.transform.rotation, transform);
             pillarObjects[i] = cell;
             

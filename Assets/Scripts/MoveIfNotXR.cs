@@ -9,7 +9,7 @@ public class MoveIfNotXR : MonoBehaviour
     {
         if (!GameControllerState.isXR)
         {
-            transform.parent = targetTransform.parent;
+            transform.SetParent(targetTransform.parent);
             transform.localPosition = targetTransform.localPosition;
             transform.localRotation = targetTransform.localRotation;
             transform.localScale = targetTransform.localScale;
