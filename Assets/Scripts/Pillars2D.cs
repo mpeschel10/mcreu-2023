@@ -100,13 +100,13 @@ public class Pillars2D : MonoBehaviour
         pillarCovers[r][c].color = GetColor(r, c);
     }
 
-    bool _eliminatedHint;
-    bool eliminatedHint
+    bool _hintHide = false;
+    bool hintHide
     {
-        get => _eliminatedHint;
+        get => _hintHide;
         set
         {
-            _eliminatedHint = value;
+            _hintHide = value;
             HideEliminated();
         }
     }
@@ -120,7 +120,7 @@ public class Pillars2D : MonoBehaviour
             GameObject[] pillarRow = pillarObjects[r];
             for (int c = 1; c < pillarRow.Length - 1; c++)
             {
-                pillarRow[c].SetActive(!eliminatedRow[c]);
+                pillarRow[c].SetActive(!hintHide || !eliminatedRow[c]);
             }
         }
     }
@@ -148,6 +148,7 @@ public class Pillars2D : MonoBehaviour
             scoreboard.cost += 1;
             CheckWin();
         }
+        HideEliminated();
     }
 
     (int, int)[] cardinalOffsets = {

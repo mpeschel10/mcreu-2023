@@ -474,6 +474,8 @@ public class Adversary : MonoBehaviour
         return height;
     }
 
+    void OpenRandom() { Random.InitState(seed); }
+    void CloseRandom() { seed = Random.Range(int.MinValue, int.MaxValue); }
     void InitializeRandomWalk(float[][] heights)
     {
         float MAX_HEIGHT = 1f;
@@ -484,9 +486,11 @@ public class Adversary : MonoBehaviour
         int rEnd = gridHeight - 1, cEnd = gridWidth - 1;
         int cellCount = gridHeight * gridWidth;
         
-        Random.InitState(3345);
+        OpenRandom();
         int rPeak = Random.Range(rStart, rEnd);
         int cPeak = Random.Range(cStart, cEnd);
+        CloseRandom();
+
         walkHeights = new float[heights.Length][];
         for (int i = 0; i < walkHeights.Length; i++)
         {
@@ -534,7 +538,7 @@ public class Adversary : MonoBehaviour
     void Shuffle<T>(T[] array)
     {
         // Debug.Log("Seed is " + seed);
-        Random.InitState(seed);
+        OpenRandom();
         for (int i = 0; i < array.Length; i++)
         {
             int swapIndex = Random.Range(i, array.Length);
@@ -542,7 +546,7 @@ public class Adversary : MonoBehaviour
             array[i] = array[swapIndex];
             array[swapIndex] = temp;
         }
-        seed = Random.Range(int.MinValue, int.MaxValue);
+        CloseRandom();
     }
 
     public float CollapseRandomWalk(float[][] heights, int r, int c)
