@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestroyIfNotXR : MonoBehaviour
 {
     [SerializeField] MonoBehaviour script;
-    void Start()
+    void Awake()
     {
         if (!GameControllerState.isXR) Destroy(script);
     }
