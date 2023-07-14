@@ -25,6 +25,7 @@ public class Adversary : MonoBehaviour
     RegionCell[] borderMaximums;
     List<RegionCell> regions;
     List<bool> activeRegions;
+    public RegionCell[] GetNeighbors(RegionCell regionCell) { return GetNeighbors(regionCell.r, regionCell.c); }
     RegionCell[] GetNeighbors(int r, int c)
     {
         RegionCell[] neighbors = new RegionCell[cardinalOffsets.Length];
@@ -86,8 +87,23 @@ public class Adversary : MonoBehaviour
             this.regionIndex = regionIndex;
             cell = parent.regions[regionIndex];
         }
+
+        public override string ToString()
+        {
+            return "RegionNode(" + parent + ", " + regionIndex + ")";
+        }
     }
 
+    public bool HasHigherNeighbor(float[][] heights, RegionCell supposedPeak)
+    {
+        float myHeight = heights[supposedPeak.r][supposedPeak.c];
+        foreach (RegionCell neighbor in GetNeighbors(supposedPeak))
+        {
+            if (heights[neighbor.r][neighbor.c] >= myHeight)
+                return true;
+        }
+        return false;
+    }
     public RegionNode[] regionNodes;
     bool[] isEliminated;
     public void AssignEliminated(float[][] heights)
@@ -106,9 +122,9 @@ public class Adversary : MonoBehaviour
             if (isEliminated[i]) continue;
             RegionNode node = regionNodes[i];
             RegionCell maximum = borderMaximums[node.regionIndex];
-            Debug.Log("Considering region " + i);
-            Debug.Log("Region has maximum located at " + maximum);
-            Debug.Log("Maximum is bordered by: ");
+            // Debug.Log("Considering region " + i);
+            // Debug.Log("Region has maximum located at " + maximum);
+            // Debug.Log("Maximum is bordered by: ");
             List<RegionCell> neighborCells = GetIndexedNeighbors(maximum);
             foreach (RegionCell cell in neighborCells)
             {
@@ -132,9 +148,59 @@ public class Adversary : MonoBehaviour
                     break;
                 }
             }
+            RegionCell cell = borderMaximums[node.regionIndex];
+            // This is kind of hacky...
+            // Basically, we're looking to see if the ridge from node
+            //  "leads" anywhere. Ideally, we would actually follow the ridge
+            //  to identify all outLinks and inLinks,
+            //  but this works well enough since we never use outLinks etc.
+            // Debug.Log("Considering higher neighbors of cell " + cell);
+            // MarkCell(cell);
+            if (HasHigherNeighbor(heights, cell))
+            {
+                isEliminated[i] = true;
+                // Debug.Log("Cell " + cell + " has higher neighbors.");
+            }
+            else
+            {
+                // Debug.Log("Cell " + cell + " has no higher neighbors.");
+            }
+        }
+
+        string activeNodes = "";
+        for (int i = 0; i < activeRegions.Count; i++)
+        {
+            if (!activeRegions[i]) continue;
+            activeNodes += i + ", ";
+        }
+        // Debug.Log("Active regions: " + activeNodes);
+        for (int i = 0; i < activeRegions.Count; i++)
+        {
+            if (!activeRegions[i]) continue;
+            RegionNode node = regionNodes[i];
+            // Debug.Log("Region " + i + " connects to " + repr(node.outLinks));
         }
 
         isEliminated[1] = false; // Do not hide revealed cells
+    }
+
+    public static string repr(System.Object o)
+    {
+        return o.ToString();
+    }
+
+    public static string repr<T>(IEnumerable<T> e)
+    {
+        string buffer = "[";
+        foreach (T element in e)
+        {
+            string s = repr(element);
+            if (buffer == "[")
+                buffer += s;
+            else
+                buffer += ", " + s;
+        }
+        return buffer + "]";
     }
 
     public void AssignRegions(float[][] heights)
@@ -177,7 +243,7 @@ public class Adversary : MonoBehaviour
                     RegionCell primary = borderingRegions[0];
                     row[c] = primary.region;
                     // Regions previously thought separate should be merged.
-                    Debug.Log("Supposed to do flood fill from cell " + c + ", " + r);
+                    // Debug.Log("Supposed to do flood fill from cell " + c + ", " + r);
                     for (int i = 1; i < borderingRegions.Count; i++)
                     {
                         RegionCell cell = borderingRegions[i];
@@ -287,7 +353,8 @@ public class Adversary : MonoBehaviour
         regionMarkers = new List<GameObject>();
     }
 
-    void MarkCell(PillarCover2[][] pillarCovers, int r, int c, int region)
+    void MarkCell(RegionCell cell) { MarkCell(cell.r, cell.c, cell.region); }
+    void MarkCell(int r, int c, int region)
     {
         GameObject cover = pillarCovers[r][c].gameObject;
         GameObject marker = Object.Instantiate(regionMarker, transform);
@@ -310,7 +377,7 @@ public class Adversary : MonoBehaviour
         return false;
     }
     
-    public void MarkRegions(PillarCover2[][] pillarCovers)
+    public void MarkRegions()
     {
         for (int r = 1; r < regionMap.Length - 1; r++)
         {
@@ -323,13 +390,28 @@ public class Adversary : MonoBehaviour
                 {
                     continue;
                 }
-                MarkCell(pillarCovers, r, c, region);
+                RegionCell cell = new RegionCell(r, c, region);
+                MarkCell(cell);
             }
         }
     }
 
-    
-    public void MarkEliminated(PillarCover2[][] pillarCovers)
+    public bool[][] isCellEliminated;
+    public void AssignIsCellEliminated()
+    {
+        isCellEliminated = new bool[regionMap.Length][];
+        for (int r = 1; r < regionMap.Length - 1; r++)
+        {
+            int[] rowIn = regionMap[r];
+            bool[] rowOut = new bool[rowIn.Length];
+            for (int c = 1; c < rowIn.Length - 1; c++)
+            {
+                rowOut[c] = isEliminated[rowIn[c]];
+            }
+            isCellEliminated[r] = rowOut;
+        }
+    }
+    public void MarkEliminated()
     {
         for (int r = 1; r < regionMap.Length - 1; r++)
         {
@@ -337,9 +419,9 @@ public class Adversary : MonoBehaviour
             for (int c = 1; c < row.Length - 1; c++)
             {
                 int region = row[c];
-                Debug.Log("Region is " + region);
+                // Debug.Log("Region is " + region);
                 if (!isEliminated[region]) continue;
-                MarkCell(pillarCovers, r, c, region);
+                MarkCell(r, c, region);
             }
         }
     }
@@ -359,8 +441,12 @@ public class Adversary : MonoBehaviour
     bool collapseInitialized;
     float rOffset, cOffset, rFrequency, cFrequency, rcOffset, rcFrequency;
     float[][] walkHeights;
-    public void Start() { Reset(); }
-    public void Reset() { collapseInitialized = false; }
+    PillarCover2[][] pillarCovers;
+    public void Reset(float[][] heights, PillarCover2[][] pillarCovers)
+    {
+        collapseInitialized = false;
+        this.pillarCovers = pillarCovers;
+    }
     void InitializeSinewaves()
     {
         rOffset     = Random.value * 2 * Mathf.PI;
@@ -398,6 +484,7 @@ public class Adversary : MonoBehaviour
         int rEnd = gridHeight - 1, cEnd = gridWidth - 1;
         int cellCount = gridHeight * gridWidth;
         
+        Random.InitState(3345);
         int rPeak = Random.Range(rStart, rEnd);
         int cPeak = Random.Range(cStart, cEnd);
         walkHeights = new float[heights.Length][];
@@ -409,7 +496,7 @@ public class Adversary : MonoBehaviour
             for (int c = 0; c < rowIn.Length; c++)
             {
                 rowOut[c] = rowIn[c];
-                Debug.Log("At " + i + ", " + c + " = " + rowOut[c]);
+                // Debug.Log("At " + i + ", " + c + " = " + rowOut[c]);
             }
         }
         RandomWalk(walkHeights, rPeak, cPeak, MAX_HEIGHT, cellCount, cellCount);
@@ -443,8 +530,11 @@ public class Adversary : MonoBehaviour
         return offsets;
     }
 
+    int seed = 531;
     void Shuffle<T>(T[] array)
     {
+        // Debug.Log("Seed is " + seed);
+        Random.InitState(seed);
         for (int i = 0; i < array.Length; i++)
         {
             int swapIndex = Random.Range(i, array.Length);
@@ -452,6 +542,7 @@ public class Adversary : MonoBehaviour
             array[i] = array[swapIndex];
             array[swapIndex] = temp;
         }
+        seed = Random.Range(int.MinValue, int.MaxValue);
     }
 
     public float CollapseRandomWalk(float[][] heights, int r, int c)

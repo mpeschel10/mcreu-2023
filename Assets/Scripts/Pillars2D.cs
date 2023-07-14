@@ -12,6 +12,11 @@ public class Pillars2D : MonoBehaviour
     [SerializeField] FireworksOnOff fireworks;
     [SerializeField] Material winMaterial;
     [SerializeField] Scoreboard scoreboard;
+    Adversary adversary;
+    void Awake()
+    {
+        adversary = GetComponent<Adversary>();
+    }
     void Start()
     {
         won = false;
@@ -67,7 +72,7 @@ public class Pillars2D : MonoBehaviour
         }
         sourceCell.SetActive(false);
 
-        GetComponent<Adversary>().Reset();
+        adversary.Reset(heights, pillarCovers);
     }
 
     public static Color HeightToColor(float height)
@@ -95,6 +100,31 @@ public class Pillars2D : MonoBehaviour
         pillarCovers[r][c].color = GetColor(r, c);
     }
 
+    bool _eliminatedHint;
+    bool eliminatedHint
+    {
+        get => _eliminatedHint;
+        set
+        {
+            _eliminatedHint = value;
+            HideEliminated();
+        }
+    }
+    void HideEliminated()
+    {
+        adversary.AssignRegions(heights);
+        adversary.AssignIsCellEliminated();
+        for (int r = 1; r < pillarObjects.Length - 1; r++)
+        {
+            bool[] eliminatedRow = adversary.isCellEliminated[r];
+            GameObject[] pillarRow = pillarObjects[r];
+            for (int c = 1; c < pillarRow.Length - 1; c++)
+            {
+                pillarRow[c].SetActive(!eliminatedRow[c]);
+            }
+        }
+    }
+
     public void Click(int r, int c)
     {
         // Debug.Log("Click " + r + " " + c);
@@ -109,7 +139,7 @@ public class Pillars2D : MonoBehaviour
                 float height = heights[cell.r][cell.c];
                 strArray += height.ToString() + ", ";
             }
-            Debug.Log(strArray);
+            // Debug.Log(strArray);
         }
         else
         {
@@ -191,14 +221,31 @@ public class Pillars2D : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKeyDown("a"))
+        {
+            GetComponent<Adversary>().AssignRegions(heights);
+        }
+        if (Input.GetKeyDown("m"))
+        {
+            Debug.Log("Assigning regions.");
+            GetComponent<Adversary>().AssignRegions(heights);
+            GetComponent<Adversary>().HideMarkers();
+            Debug.Log("Drawing regions.");
+            // GetComponent<Adversary>().MarkRegions(pillarCovers);
+            GetComponent<Adversary>().MarkEliminated();
+        }
         if (Input.GetKeyDown("r"))
         {
             Debug.Log("Assigning regions.");
             GetComponent<Adversary>().AssignRegions(heights);
             GetComponent<Adversary>().HideMarkers();
             Debug.Log("Drawing regions.");
-            GetComponent<Adversary>().MarkRegions(pillarCovers);
+            GetComponent<Adversary>().MarkRegions();
             // GetComponent<Adversary>().MarkEliminated(pillarCovers);
+        }
+        if (Input.GetKeyDown("e"))
+        {
+            HideEliminated();
         }
         if (Input.GetKeyDown("h"))
         {

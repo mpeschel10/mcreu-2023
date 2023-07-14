@@ -2665,6 +2665,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu Wrapper
       objectReference: {fileID: 0}
+    - target: {fileID: 2061838855556534915, guid: ef21716856bbdf643b65545a9d3646ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_IsActive
