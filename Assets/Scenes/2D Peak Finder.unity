@@ -2431,7 +2431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &823301888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2669,6 +2669,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303813260279610493, guid: ef21716856bbdf643b65545a9d3646ce,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1509333442}
+    - target: {fileID: 4303813260279610493, guid: ef21716856bbdf643b65545a9d3646ce,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Reset
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303813260279610493, guid: ef21716856bbdf643b65545a9d3646ce,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Pillars2D, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}

@@ -19,9 +19,12 @@ public class Pillars2D : MonoBehaviour
     }
     void Start()
     {
-        won = false;
-        scoreboard.cost = 0;
-        sourceCell.SetActive(true);
+        sourceCell.SetActive(false);
+        Reset();
+    }
+
+    void DestroyOldPillars()
+    {
         if (pillarObjects != null)
         {
             foreach (GameObject[] row in pillarObjects)
@@ -31,13 +34,15 @@ public class Pillars2D : MonoBehaviour
             pillarCovers = null;
             heights = null;
         }
+    }
 
+    void MakePillars()
+    {
         pillarCovers = new PillarCover2[gridHeight + 2][];
         pillarObjects = new GameObject[gridHeight + 2][];
         heights = new float[gridHeight + 2][];
-
+        
         float pillarWidth = 1 / 32f;
-
         Vector3 backLeft = sourceCell.transform.position;
         backLeft += sourceCell.transform.right * -1 * (gridWidth + 1) * 0.5f * pillarWidth;
         backLeft += sourceCell.transform.forward * -1 * (gridHeight + 1) * 0.5f * pillarWidth;
@@ -61,6 +66,7 @@ public class Pillars2D : MonoBehaviour
                 }
                 Vector3 v = backLeft + (r * Vector3.right + c * Vector3.forward) * pillarWidth;
                 GameObject g = Object.Instantiate(sourceCell, v, q, transform);
+                g.SetActive(true);
                 
                 PillarCover2 p = g.GetComponentInChildren<PillarCover2>();
                 p.r = r; p.c = c;
@@ -70,7 +76,14 @@ public class Pillars2D : MonoBehaviour
                 heightsRow[c] = float.NaN;
             }
         }
-        sourceCell.SetActive(false);
+    }
+
+    public void Reset()
+    {
+        won = false;
+        scoreboard.cost = 0;
+        DestroyOldPillars();
+        MakePillars();
 
         adversary.Reset(heights, pillarCovers);
     }
