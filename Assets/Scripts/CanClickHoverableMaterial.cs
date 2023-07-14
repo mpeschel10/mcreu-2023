@@ -8,11 +8,20 @@ public class CanClickHoverableMaterial : MonoBehaviour, MouseSelector.Hoverable
     [SerializeField] Material hoverMaterial, nextMaterial;
     bool hovering = false, next = false;
     [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] MeshRenderer[] otherRenderers;
+    Material[] normalMaterials;
     void Awake()
     {
+        if (hoverMaterial == null)
+            hoverMaterial = GameControllerState.defaultHoverMaterial;
         if (meshRenderer == null)
             meshRenderer = GetComponent<MeshRenderer>();
         normalMaterial = meshRenderer.material;
+        normalMaterials = new Material[otherRenderers.Length];
+        for (int i = 0; i < otherRenderers.Length; i++)
+        {
+            normalMaterials[i] = otherRenderers[i].material;
+        }
     }
 
     public GameObject GetGameObject() { return gameObject; }
@@ -35,13 +44,22 @@ public class CanClickHoverableMaterial : MonoBehaviour, MouseSelector.Hoverable
     
     public void Fix()
     {
-        Material m;
-        if (hovering)
-            m = hoverMaterial;
-        else if (next)
-            m = nextMaterial;
+        if (hovering || next)
+        {
+            Material m = hovering ? hoverMaterial : nextMaterial;
+            meshRenderer.material = m;
+            foreach (MeshRenderer r in otherRenderers)
+            {
+                r.material = m;
+            }
+        }
         else
-            m = normalMaterial;
-        meshRenderer.material = m;
+        {
+            meshRenderer.material = normalMaterial;
+            for (int i = 0; i < otherRenderers.Length; i++)
+            {
+                otherRenderers[i].material = normalMaterials[i];
+            }
+        }
     }
 }

@@ -7,6 +7,21 @@ public class GameControllerState : MonoBehaviour
 {
     public static MenuLocation menuLocation;
     public static ActiveCamera activeCamera;
+    
+    static Material _defaultHoverMaterial;
+    public static Material defaultHoverMaterial
+    {
+        get
+        {
+            if (_defaultHoverMaterial == null)
+            {
+                _defaultHoverMaterial = GameObject.FindGameObjectWithTag("GameController")
+                                                  .GetComponent<GameControllerState>()
+                                                  .defaultHoverMaterialInstance;
+            }
+            return _defaultHoverMaterial;
+        }
+    }
 
     private static bool _isXR_initialized = false;
     private static bool _isXR = false;
@@ -30,7 +45,9 @@ public class GameControllerState : MonoBehaviour
             _isXR = xrDisplaySubsystems.Count != 0;
             _isXR_initialized = true;
         } catch (System.Exception e) {
-            Debug.LogError("Something went wrong fetching IsXR. This may be because you accessed isXR during Awake() before Start() when XR system is NOT initialized.");
+            // I've moved the load order around and this is problem should be impossible now.
+            // Also, I'm not sure that it ever threw an error; just returned an empty list.
+            Debug.LogError("Something went wrong fetching IsXR. This may be because you accessed isXR during Awake() before Start() when XR system is not initialized.");
             throw e;
         }
     }
@@ -47,7 +64,10 @@ public class GameControllerState : MonoBehaviour
             positionMarker = candidateObject;
             positionMarker.SetActive(false);
         }
+        FixIsXR();
     }
+
+    [SerializeField] Material defaultHoverMaterialInstance;
     void Awake()
     {
         if (oneTrueInstance != null)
@@ -56,8 +76,24 @@ public class GameControllerState : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        if (isXR)
+        {
+            // Debug.Log("Gamecontroller awake says isXR");
+            menuLocation = MenuLocation.LeftHand;
+        }
+        else
+        {
+            // Debug.Log("Gamecontroller awake says not isXR");
+            menuLocation = MenuLocation.FullScreen;
+        }
         oneTrueInstance = this;
         DontDestroyOnLoad(gameObject);
         Fix();
+    }
+
+    void Start()
+    {
+        FixIsXR(); // Just in case I messed it up by calling isXR in Awake
+        // Debug.Log("As of gamecontroller state start , menuLocation is " + menuLocation);
     }
 }

@@ -7,7 +7,7 @@ public class InitialFix : MonoBehaviour
     void Start()
     {
         Fixable fixable = GetComponent<Fixable>();
-        Debug.Log("Calling initial fix on " + ((MonoBehaviour) fixable).gameObject);
+        // Debug.Log("Calling initial fix on " + ((MonoBehaviour) fixable).gameObject);
         fixable.Fix();
     }
 }

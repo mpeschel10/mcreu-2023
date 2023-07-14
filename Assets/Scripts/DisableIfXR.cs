@@ -12,7 +12,7 @@ public class DisableIfXR : MonoBehaviour
         if (target == null) target = gameObject;
         if (IsXR())
         {
-            Debug.Log("Disabling " + target + " since XR is available.");
+            // Debug.Log("Disabling " + target + " since XR is available.");
             if (target is Collider collider)          { collider.enabled = false;         }
             else if (target is Behaviour behaviour)   { behaviour.enabled = false;        }
             else if (target is GameObject gameObject) { gameObject.SetActive(false);      }
@@ -22,7 +22,7 @@ public class DisableIfXR : MonoBehaviour
             }
         } else
         {
-            Debug.Log(target + " is enabled since XR is not available.");
+            // Debug.Log(target + " is enabled since XR is not available.");
         }
     }
 

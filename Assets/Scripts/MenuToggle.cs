@@ -46,7 +46,7 @@ public class MenuToggle : MonoBehaviour, Fixable
             // Debug.Log("Set menu transform");
         }
         menu.GetComponent<Fixable>().Fix();
-        foreach (Fixable f in callbacks)
+        foreach (Fixable f in callbacks) // Intended for updating the XR Ray Interactors
         {
             // Debug.Log("Menu toggle is calling fixable : " + f);
             f.Fix();

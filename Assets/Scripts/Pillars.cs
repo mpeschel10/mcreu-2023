@@ -14,11 +14,12 @@ public class Pillars : MonoBehaviour
     GameObject[] pillarObjects;
     [SerializeField] GameObject maximumMarker;
     int cost = 0;
-    float maximumSoFar = 0;
     public bool won = false;
     int nextIndex = -1;
+    PillarControllerState pillarController;
     void Awake()
     {
+        pillarController = GameObject.FindGameObjectWithTag("PillarController").GetComponent<PillarControllerState>();
         MakePillars();
         MakeHeights();
         ResetVariables();
@@ -32,7 +33,6 @@ public class Pillars : MonoBehaviour
         cost = 0;
         scoreboard.cost = cost;
         scoreboard.best = GetBest(count);
-        maximumSoFar = 0;
         won = false;
         nextStepHint = false;
     }
@@ -107,6 +107,17 @@ public class Pillars : MonoBehaviour
         return index;
     }
 
+    int SeekInflection(int index, int direction)
+    {
+        float target = heights[index];
+        index += direction;
+        while (!(heights[index] <= target))
+        {
+            index += direction;
+        }
+        return index;
+    }
+
     public static float Interpolate(int index, int leftIndex, int rightIndex, float leftHeight, float rightHeight)
     {
         float span = rightIndex - leftIndex;
@@ -117,36 +128,44 @@ public class Pillars : MonoBehaviour
     }
     public void Collapse(int index)
     {
-        float height = -1f;
-        if (cost == 0)
+        float height;
+        if (cost == 1)
         {
             height = 0.5f;
         } else {
-            int leftRegionBoundary = SeekCollapsed(index, -1);
-            int rightRegionBoundary = SeekCollapsed(index, 1);
+            int leftBoundaryIfAbove = SeekCollapsed(index, -1);
+            int rightBoundaryIfAbove = SeekCollapsed(index, 1);
             
-            float left = heights[leftRegionBoundary];
-            float right = heights[rightRegionBoundary];
-            int leftEdgeBoundary = SeekCollapsedBelow(leftRegionBoundary, -1, left);
-            int rightEdgeBoundary = SeekCollapsedBelow(rightRegionBoundary, 1, right);
+            float left = heights[leftBoundaryIfAbove];
+            float right = heights[rightBoundaryIfAbove];
+            int leftBoundaryIfBetween = SeekInflection(leftBoundaryIfAbove, -1);
+            int rightBoundaryIfBetween = SeekInflection(rightBoundaryIfAbove, 1);
 
-            int spanIfAbove = rightRegionBoundary - leftRegionBoundary - 1;
-            int spanIfBetween = right > left ? rightEdgeBoundary - index - 1 : index - leftEdgeBoundary - 1;
+            int spanIfAbove = rightBoundaryIfAbove - leftBoundaryIfAbove;
+            int spanIfBetween = right > left ? rightBoundaryIfBetween - index : index - leftBoundaryIfBetween;
             //int spanIfBelow; // This is always <= spanIfBetween, but might add flavor if I have time to implement it.
 
+            Debug.Log(spanIfAbove + " >= " + spanIfBetween);
             if (spanIfAbove >= spanIfBetween)
             {
-                bool closerToRight = rightEdgeBoundary - index < index - leftEdgeBoundary;
+                Debug.Log("Span if above > spanifbetween");
+                bool closerToRight = rightBoundaryIfAbove - index < index - leftBoundaryIfAbove;
+                Debug.Log((rightBoundaryIfAbove - index) + " < " + (index - leftBoundaryIfAbove));
                 if (closerToRight)
                 {
-                    leftRegionBoundary += 1;
+                    Debug.Log("Closer to right");
+                    leftBoundaryIfAbove += 1;
                     left = MAX_HEIGHT;
                 } else {
-                    rightRegionBoundary -= 1;
+                    Debug.Log("Closer or equal to left");
+                    rightBoundaryIfAbove -= 1;
                     right = MAX_HEIGHT;
                 }
+            } else {
+                Debug.Log("Span if above < spanifbetween");
             }
-            height = Interpolate(index, leftRegionBoundary, rightRegionBoundary, left, right);
+            Debug.Log("Interpolate args: " + index + ", " + leftBoundaryIfAbove + ", " + rightBoundaryIfAbove + ", " + left + ", " + right);
+            height = Interpolate(index, leftBoundaryIfAbove, rightBoundaryIfAbove, left, right);
         }
         heights[index] = height;
     }
@@ -220,15 +239,7 @@ public class Pillars : MonoBehaviour
         Vector3 oldSize = pillarCover.transform.localScale;
         float height = heights[index];
         pillarCover.pillarOffset.transform.localScale = new Vector3(oldSize.x, height, oldSize.z);
-        if (height > maximumSoFar)
-        {
-            Vector3 oldPosition = maximumMarker.transform.localPosition;
-            Transform cell = pillarCover.transform.parent.parent.parent;
-            maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, oldPosition.y, oldPosition.z);
-            maximumSoFar = height;
-            // Debug.Log(oldPosition);
-            // Debug.Log(cell.localPosition.x);
-        }
+        FixMaximum();
         if (_hideHint)
             HideBadPillars();
         pillarCover.Reveal();
@@ -240,14 +251,34 @@ public class Pillars : MonoBehaviour
         get { return _maximumHint; }
         set {
             _maximumHint = value;
-            maximumMarker.SetActive(value);
+            FixMaximum();
         }
+    }
+
+    public void FixMaximum()
+    {
+        float bestHeight = 0;
+        for (int i = 1; i < heights.Length - 1; i++)
+        {
+            float height = heights[i];
+            if (height > bestHeight)
+            {
+                Transform cell = pillarCovers[i].transform.parent.parent.parent;
+                Vector3 o = maximumMarker.transform.localPosition;
+                maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, o.y, o.z);
+                bestHeight = height;
+                // Debug.Log(oldPosition);
+                // Debug.Log(cell.localPosition.x);
+            }
+        }
+        maximumMarker.SetActive(maximumHint && cost > 0);
     }
 
     public void Click(int index)
     {
-        Reveal(index);
+        Debug.Log("Click index " + index);
         cost++;
+        Reveal(index);
 
         if (pairsHint)
         {
@@ -258,8 +289,8 @@ public class Pillars : MonoBehaviour
                 pair = index + 1;
             if (pair != -1)
             {
-                Reveal(pair);
                 cost++;
+                Reveal(pair);
             }
         }
 
@@ -276,10 +307,12 @@ public class Pillars : MonoBehaviour
             if (heights[i - 1] <= heights[i] && heights[i] >= heights[i + 1])
             {
                 Debug.Log("Won");
+                won = true;
+                pillarController.OnWin();
                 pillarCovers[i].pillar.GetComponent<MeshRenderer>().material = winMaterial;
                 fireworks.enabled = true;
                 Invoke(nameof(turnOffFireworks), 7);
-                won = true;
+                break;
             }
         }
     }
