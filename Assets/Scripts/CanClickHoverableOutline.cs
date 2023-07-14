@@ -19,6 +19,7 @@ public class CanClickHoverableOutline : MonoBehaviour, MouseSelector.Hoverable
 
     public void Unhover()
     {
-        outline.enabled = false;
+        if (outline != null)
+            outline.enabled = false;
     }
 }

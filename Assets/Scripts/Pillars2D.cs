@@ -13,9 +13,11 @@ public class Pillars2D : MonoBehaviour
     [SerializeField] Material winMaterial;
     [SerializeField] Scoreboard scoreboard;
     Adversary adversary;
+    Pillar2dControllerState pillarController;
     void Awake()
     {
         adversary = GetComponent<Adversary>();
+        pillarController = GameObject.FindGameObjectWithTag("Pillar2dController").GetComponent<Pillar2dControllerState>();
     }
     void Start()
     {
@@ -209,11 +211,12 @@ public class Pillars2D : MonoBehaviour
                 if (IsPeak(r, c))
                 {
                     Debug.Log("Won!");
+                    won = true;
+                    pillarController.OnWin();
                     PillarCover2 cover = pillarCovers[(int) cell.x][(int) cell.y];
                     cover.pillar.gameObject.GetComponent<MeshRenderer>().material = winMaterial;
                     fireworks.enabled = true;
                     Invoke(nameof(StopFireworks), 7);
-                    won = true;
                     return;
                 }
             }
