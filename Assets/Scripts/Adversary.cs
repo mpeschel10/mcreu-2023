@@ -358,10 +358,9 @@ public class Adversary : MonoBehaviour
 
     bool collapseInitialized;
     float rOffset, cOffset, rFrequency, cFrequency, rcOffset, rcFrequency;
-    public void Start()
-    {
-        collapseInitialized = false;
-    }
+    float[][] walkHeights;
+    public void Start() { Reset(); }
+    public void Reset() { collapseInitialized = false; }
     void InitializeSinewaves()
     {
         rOffset     = Random.value * 2 * Mathf.PI;
@@ -401,7 +400,20 @@ public class Adversary : MonoBehaviour
         
         int rPeak = Random.Range(rStart, rEnd);
         int cPeak = Random.Range(cStart, cEnd);
-        RandomWalk(heights, rPeak, cPeak, MAX_HEIGHT, cellCount, cellCount);
+        walkHeights = new float[heights.Length][];
+        for (int i = 0; i < walkHeights.Length; i++)
+        {
+            float[] rowIn = heights[i];
+            float[] rowOut = new float[rowIn.Length];
+            walkHeights[i] = rowOut;
+            for (int c = 0; c < rowIn.Length; c++)
+            {
+                rowOut[c] = rowIn[c];
+                Debug.Log("At " + i + ", " + c + " = " + rowOut[c]);
+            }
+        }
+        RandomWalk(walkHeights, rPeak, cPeak, MAX_HEIGHT, cellCount, cellCount);
+        collapseInitialized = true;
     }
 
     int RandomWalk(float[][] heights, int rFocus, int cFocus, float maxHeight, int cellsRemaining, int cellsTotal)
@@ -445,7 +457,8 @@ public class Adversary : MonoBehaviour
     public float CollapseRandomWalk(float[][] heights, int r, int c)
     {
         if (!collapseInitialized) InitializeRandomWalk(heights);
-        return heights[r][c];
+        heights[r][c] = walkHeights[r][c];
+        return walkHeights[r][c];
     }
 
 }
