@@ -577,6 +577,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &217208623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,6 +705,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &234452306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,6 +1741,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!54 &501519105
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2052,6 +2055,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &621257161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2191,6 +2195,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &677699662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2318,6 +2323,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &699218676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2545,6 +2551,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 823301891}
     m_Modifications:
+    - target: {fileID: 7256775700068019, guid: ef21716856bbdf643b65545a9d3646ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2061838855556534914, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2654,6 +2664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Menu Wrapper
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef21716856bbdf643b65545a9d3646ce, type: 3}
@@ -2783,6 +2798,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &831050899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3552,6 +3568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218b8adea444ceb438db013257fe2035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultHoverMaterialInstance: {fileID: 0}
 --- !u!4 &1164872056
 Transform:
   m_ObjectHideFlags: 0
@@ -3757,6 +3774,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &1189145065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,6 +4132,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &1336940214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4920,6 +4939,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &1574575123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5480,6 +5500,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 35fd7665765a8604a9a8698c9fb4239c, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &1720063802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5630,6 +5651,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 1737332248}
+  otherRenderers: []
 --- !u!114 &1737332255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6710,6 +6732,7 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: 17dcb7d819ffb1d4e845cfa04a54f40a, type: 2}
   nextMaterial: {fileID: 0}
   meshRenderer: {fileID: 0}
+  otherRenderers: []
 --- !u!114 &2131241775
 MonoBehaviour:
   m_ObjectHideFlags: 0

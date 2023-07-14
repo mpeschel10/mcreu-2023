@@ -85,8 +85,8 @@ public class Pillars2D : MonoBehaviour
     public Color GetColor(int r, int c) { return HeightToColor(heights[r][c]); }
     void Collapse(int r, int c)
     {
-        float height = GetComponent<Adversary>().CollapseRandomWalk(heights, r, c);
-        // float height = GetComponent<Adversary>().CollapseSinewaves(heights, r, c);
+        // float height = GetComponent<Adversary>().CollapseRandomWalk(heights, r, c);
+        float height = GetComponent<Adversary>().CollapseSinewaves(heights, r, c);
         // Debug.Log("setting height to " + height);
         
         Transform t = pillarCovers[r][c].pillarParent.transform;
@@ -195,8 +195,10 @@ public class Pillars2D : MonoBehaviour
         {
             Debug.Log("Assigning regions.");
             GetComponent<Adversary>().AssignRegions(heights);
+            GetComponent<Adversary>().HideMarkers();
             Debug.Log("Drawing regions.");
-            GetComponent<Adversary>().MarkRegions(pillarCovers);
+            // GetComponent<Adversary>().MarkRegions(pillarCovers);
+            GetComponent<Adversary>().MarkEliminated(pillarCovers);
         }
         if (Input.GetKeyDown("h"))
         {

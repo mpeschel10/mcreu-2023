@@ -7,6 +7,14 @@ public class Adversary : MonoBehaviour
     public class RegionCell
     {
         public int r, c, region;
+        public RegionCell(int r, int c, int region)
+        {
+            this.r = r; this.c = c; this.region = region;
+        }
+        public override string ToString()
+        {
+            return "RegionCell(" + r + ", " + c + ", " + region + ")";
+        }
     }
     (int, int)[] cardinalOffsets = {
         (-1, -1), ( 0, -1), (1, -1),
@@ -14,21 +22,37 @@ public class Adversary : MonoBehaviour
         (-1,  1), ( 0,  1), (1,  1),
     };
     int[][] regionMap = null;
+    RegionCell[] borderMaximums;
     List<RegionCell> regions;
     List<bool> activeRegions;
-    List<RegionCell> GetBorderingRegions(int r, int c)
+    RegionCell[] GetNeighbors(int r, int c)
     {
-        List<RegionCell> cells = new List<RegionCell>();
-        foreach ((int, int) offsets in cardinalOffsets)
+        RegionCell[] neighbors = new RegionCell[cardinalOffsets.Length];
+        for (int i = 0; i < cardinalOffsets.Length; i++)
         {
-            (int rOff, int cOff) = offsets;
-            int adjacent = regionMap[r + rOff][c + cOff];
-            if (adjacent < 2) continue;
-            while (adjacent >= cells.Count)
+            (int rOff, int cOff) = cardinalOffsets[i];
+            neighbors[i] = new RegionCell(r + rOff, c + cOff, regionMap[r + rOff][c + cOff] );
+        }
+        return neighbors;
+    }
+    List<RegionCell> GetIndexedNeighbors(RegionCell cell)
+    {
+        int r = cell.r; int c = cell.c;
+        List<RegionCell> cells = new List<RegionCell>();
+        foreach (RegionCell neighbor in GetNeighbors(cell.r, cell.c))
+        {
+            if (neighbor.region < 2) continue;
+            while (neighbor.region >= cells.Count)
                 cells.Add(null);
             // This will replace regions we see twice, but that's ok
-            cells[adjacent] = new RegionCell { r = r + rOff, c = c + cOff, region = adjacent };
+            cells[neighbor.region] = neighbor;
         }
+        return cells;
+    }
+
+    List<RegionCell> GetBorderingRegions(int r, int c)
+    {
+        List<RegionCell> cells = GetIndexedNeighbors(new RegionCell(r, c, -1));
         List<RegionCell> cellList = new List<RegionCell>();
         foreach (RegionCell cell in cells)
         {
@@ -37,9 +61,80 @@ public class Adversary : MonoBehaviour
         }
         return cellList;
     }
-    List<RegionCell> GetBorderingRegionsExcept(int r, int c, int regionToExclude)
+
+    public void AssignBorderMaximums(float[][] heights)
     {
-        return GetBorderingRegions(r, c).FindAll(cell => cell.region != regionToExclude);
+        borderMaximums = new RegionCell[regions.Count];
+        for (int i = 0; i < regions.Count; i++)
+        {
+            if (!activeRegions[i]) continue;
+            RegionCell regionStart = regions[i];
+            borderMaximums[i] = GetBorderMaximum(GetRegionBorder(regionStart.r, regionStart.c), heights);
+        }
+    }
+    
+    public class RegionNode
+    {
+        public List<RegionNode> outLinks = new List<RegionNode>();
+        public List<RegionNode> inLinks = new List<RegionNode>();
+        public int regionIndex;
+        public RegionCell cell;
+        public Adversary parent;
+        public RegionNode(Adversary parent, int regionIndex)
+        {
+            this.parent = parent;
+            this.regionIndex = regionIndex;
+            cell = parent.regions[regionIndex];
+        }
+    }
+
+    public RegionNode[] regionNodes;
+    bool[] isEliminated;
+    public void AssignEliminated(float[][] heights)
+    {
+        regionNodes = new RegionNode[regions.Count];
+        isEliminated = new bool[regions.Count];
+        for (int i = 0; i < isEliminated.Length; i++)
+        {
+            isEliminated[i] = !activeRegions[i];
+            if (isEliminated[i]) continue;
+            regionNodes[i] = new RegionNode(this, i);
+        }
+        
+        for (int i = 0; i < isEliminated.Length; i++)
+        {
+            if (isEliminated[i]) continue;
+            RegionNode node = regionNodes[i];
+            RegionCell maximum = borderMaximums[node.regionIndex];
+            Debug.Log("Considering region " + i);
+            Debug.Log("Region has maximum located at " + maximum);
+            Debug.Log("Maximum is bordered by: ");
+            List<RegionCell> neighborCells = GetIndexedNeighbors(maximum);
+            foreach (RegionCell cell in neighborCells)
+            {
+                if (cell == null) continue;
+                if (cell.region == node.regionIndex) continue;
+                RegionNode neighborNode = regionNodes[cell.region];
+                node.outLinks.Add(neighborNode);
+                neighborNode.inLinks.Add(node);
+            }
+        }
+
+        for (int i = 0; i < isEliminated.Length; i++)
+        {
+            if (isEliminated[i]) continue;
+            RegionNode node = regionNodes[i];
+            foreach (RegionNode neighbor in node.outLinks)
+            {
+                if (!neighbor.outLinks.Contains(node))
+                {
+                    isEliminated[i] = true;
+                    break;
+                }
+            }
+        }
+
+        isEliminated[1] = false; // Do not hide revealed cells
     }
 
     public void AssignRegions(float[][] heights)
@@ -70,7 +165,7 @@ public class Adversary : MonoBehaviour
                     // Probably a new region. Can be merged later if not.
                     row[c] = activeRegions.Count; // Start numbering at 2.
                     activeRegions.Add(true);
-                    regions.Add(new RegionCell { r = r, c = c, region = row[c] });
+                    regions.Add(new RegionCell(r, c, row[c]));
                 }
                 else if (borderingRegions.Count == 1)
                 {
@@ -98,6 +193,8 @@ public class Adversary : MonoBehaviour
                 // }
             }
         }
+        AssignBorderMaximums(heights);
+        AssignEliminated(heights);
     }
 
     bool[][] visited;
@@ -126,7 +223,7 @@ public class Adversary : MonoBehaviour
             int region = regionMap[r][c];
             if (region == 1)
             {
-                border.Add(new RegionCell { r = r, c = c, region = regionMap[r][c] });
+                border.Add(new RegionCell(r, c, regionMap[r][c]) );
                 continue;
             }
             foreach (RegionCell neighbor in GetNeighbors(r, c))
@@ -153,16 +250,6 @@ public class Adversary : MonoBehaviour
         return best;
     }
 
-    RegionCell[] GetNeighbors(int r, int c)
-    {
-        RegionCell[] neighbors = new RegionCell[cardinalOffsets.Length];
-        for (int i = 0; i < cardinalOffsets.Length; i++)
-        {
-            (int rOff, int cOff) = cardinalOffsets[i];
-            neighbors[i] = new RegionCell { r = r + rOff, c = c + cOff, region = regionMap[r + rOff][c + cOff] };
-        }
-        return neighbors;
-    }
     void FloodFill(int r, int c, int regionToErase, int overwritingRegion)
     {
         Queue<(int, int)> targets = new Queue<(int, int)>();
@@ -200,26 +287,74 @@ public class Adversary : MonoBehaviour
         regionMarkers = new List<GameObject>();
     }
 
+    void MarkCell(PillarCover2[][] pillarCovers, int r, int c, int region)
+    {
+        GameObject cover = pillarCovers[r][c].gameObject;
+        GameObject marker = Object.Instantiate(regionMarker, transform);
+        marker.transform.position = cover.transform.position + Vector3.up;
+        marker.GetComponent<MeshRenderer>().material.color = regionColors[region];
+        regionMarkers.Add(marker);
+        marker.SetActive(true);
+    }
+
+    bool IsRegionPeak(int r, int c)
+    {
+        foreach (RegionCell peak in borderMaximums)
+        {
+            if (peak == null) continue;
+            if (peak.r == r && peak.c == c)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void MarkRegions(PillarCover2[][] pillarCovers)
     {
-        HideMarkers();
-        for (int r = 0; r < regionMap.Length; r++)
+        for (int r = 1; r < regionMap.Length - 1; r++)
         {
             int[] row = regionMap[r];
-            for (int c = 0; c < row.Length; c++)
+            for (int c = 1; c < row.Length - 1; c++)
             {
                 int region = row[c];
                 if (region == 0) throw new System.Exception("Should not find uninitialized region cell. What is going on.");
-                if (region == 1) continue;
-                GameObject cover = pillarCovers[r][c].gameObject;
-                GameObject marker = Object.Instantiate(regionMarker, transform);
-                marker.transform.position = cover.transform.position + Vector3.up;
-                marker.GetComponent<MeshRenderer>().material.color = regionColors[region];
-                regionMarkers.Add(marker);
-                marker.SetActive(true);
+                if (region == 1)
+                {
+                    continue;
+                }
+                MarkCell(pillarCovers, r, c, region);
             }
         }
     }
+
+    
+    public void MarkEliminated(PillarCover2[][] pillarCovers)
+    {
+        for (int r = 1; r < regionMap.Length - 1; r++)
+        {
+            int[] row = regionMap[r];
+            for (int c = 1; c < row.Length - 1; c++)
+            {
+                int region = row[c];
+                Debug.Log("Region is " + region);
+                if (!isEliminated[region]) continue;
+                MarkCell(pillarCovers, r, c, region);
+            }
+        }
+    }
+
+    // public List<RegionCell> GetRegionsWithPeaks()
+    // {
+    //     List<RegionCell> l = new List<RegionCell>();
+    //     foreach (RegionCell c in regions)
+    //     {
+            
+    //     }
+    //     return l;
+    // }
+
+
 
     bool collapseInitialized;
     float rOffset, cOffset, rFrequency, cFrequency, rcOffset, rcFrequency;
