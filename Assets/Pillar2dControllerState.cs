@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pillar2dControllerState : MonoBehaviour
 {
     public const int TUTORIAL = 0, ELIMINATE = 1, RUNTIME_HINT = 2, RULER = 3, MAXIMUM = 4, COLUMNS = 5, BEST = 6, CONGRATULATIONS = 7;
+    public const int OFFSET_FROM_SCENARIO_TO_HINT_INDEX_WHICH_IS_NEGATIVE_FIRST_THING_AFTER_TUTORIAL = -ELIMINATE;
     [SerializeField] GameObject activeGroup, inactiveGroup;
     [SerializeField] GameObject menuInstructionXR, menuInstructionPC, controlsInstructionXR, controlsInstructionPC, goalInstruction;
     [SerializeField] GameObject eliminateInstruction, runtimeHintInstruction, rulerInstruction, maxInstruction, columnsInstruction, bestInstruction, congratulationsInstruction;
@@ -60,11 +61,10 @@ public class Pillar2dControllerState : MonoBehaviour
     
     void ShowHintInstructions()
     {
-        const int NEGATIVE_FIRST_THING_AFTER_TUTORIAL = -ELIMINATE;
         for (int i = TUTORIAL + 1; i <= scenario; i++)
         {
-            Debug.Log("Showing hint instruction " + i);
-            Show(hintInstructions[i + NEGATIVE_FIRST_THING_AFTER_TUTORIAL]);
+            // Debug.Log("Showing hint instruction " + i);
+            Show(hintInstructions[i + OFFSET_FROM_SCENARIO_TO_HINT_INDEX_WHICH_IS_NEGATIVE_FIRST_THING_AFTER_TUTORIAL]);
         }
     }
     public void Fix()
@@ -93,22 +93,28 @@ public class Pillar2dControllerState : MonoBehaviour
         Fix();
     }
 
-    public void OnNext()
+    public void CleanActiveInstructions()
     {
-        if (scenario < CONGRATULATIONS)
+        foreach (GameObject instruction in allInstructions)
+             instruction.SetActive(false);
+    }
+
+    void ShowMenu()
+    {
+        CleanActiveInstructions();
+        if (scenario == TUTORIAL)
         {
-            scenario++;
+            menuInstructionPC.SetActive(true);
+            menuInstructionXR.SetActive(true);
         }
         else
         {
-            Debug.LogWarning(
-                "It should not be possible for "+ gameObject +
-                " to OnNext while scenario is CONGRATULATIONS. Did you not hide the button?"
-            );
+            for (int hintIndex = 0; hintIndex < hintInstructions.Length; hintIndex++)
+            {
+                GameObject instruction = hintInstructions[hintIndex];
+                instruction.SetActive(scenario + OFFSET_FROM_SCENARIO_TO_HINT_INDEX_WHICH_IS_NEGATIVE_FIRST_THING_AFTER_TUTORIAL == hintIndex);
+            }
         }
-        Debug.Log("Scenario is now " + scenario);
-        pillars.Reset();
-        Fix();
 
         GameControllerState.menuLocation = GameControllerState.isXR ? MenuLocation.LeftHand : MenuLocation.FullScreen;
         foreach (MenuToggle toggle in menuToggles)
@@ -117,6 +123,25 @@ public class Pillar2dControllerState : MonoBehaviour
             {
                 toggle.Fix();
             }
+        }
+    }
+
+    public void OnNext()
+    {
+        if (scenario < CONGRATULATIONS)
+        {
+            scenario++;
+            pillars.Reset();
+            Fix();
+
+            ShowMenu();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "It should not be possible for "+ gameObject +
+                " to OnNext while scenario is CONGRATULATIONS. Did you not hide the button?"
+            );
         }
     }
 }
