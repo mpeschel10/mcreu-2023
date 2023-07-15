@@ -122,6 +122,9 @@ public class Adversary : MonoBehaviour
             if (isEliminated[i]) continue;
             RegionNode node = regionNodes[i];
             RegionCell maximum = borderMaximums[node.regionIndex];
+            if (heights[maximum.r][maximum.c] == Pillars2D.MIN_HEIGHT)
+                // When game is uninitialized, pretend that there must be a peak even though not really.
+                continue;
             // Debug.Log("Considering region " + i);
             // Debug.Log("Region has maximum located at " + maximum);
             // Debug.Log("Maximum is bordered by: ");

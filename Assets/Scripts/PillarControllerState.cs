@@ -27,17 +27,21 @@ public class PillarControllerState : MonoBehaviour
     
     void Awake()
     {
-        allInstructions = new GameObject[] {
+        allInstructions = new GameObject[]
+        {
             menuInstructionPC, menuInstructionVR, controlsInstructionPC, controlsInstructionVR, goalInstruction,
             maximumInstruction, eliminateInstruction, rulerInstruction, pairsInstruction, nextInstruction,
         };
-        basicInstructionsPC = new GameObject[] {
+        basicInstructionsPC = new GameObject[]
+        {
             menuInstructionPC, controlsInstructionPC, goalInstruction,
         };
-        basicInstructionsVR = new GameObject[] {
+        basicInstructionsVR = new GameObject[]
+        {
             menuInstructionVR, controlsInstructionVR, goalInstruction,
         };
-        hintInstructions = new GameObject[] {
+        hintInstructions = new GameObject[]
+        {
             maximumInstruction, eliminateInstruction, rulerInstruction, pairsInstruction, nextInstruction,
         };
     }

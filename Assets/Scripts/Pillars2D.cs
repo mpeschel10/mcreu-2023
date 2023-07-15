@@ -37,7 +37,7 @@ public class Pillars2D : MonoBehaviour
             heights = null;
         }
     }
-
+    public const float MIN_HEIGHT = 0f;
     void MakePillars()
     {
         pillarCovers = new PillarCover2[gridHeight + 2][];
@@ -63,7 +63,7 @@ public class Pillars2D : MonoBehaviour
             {
                 if (c == 0 || r == 0 || c == heightsRow.Length - 1 || r == heights.Length - 1)
                 {
-                    heightsRow[c] = 0;
+                    heightsRow[c] = MIN_HEIGHT;
                     continue;
                 }
                 Vector3 v = backLeft + (r * Vector3.right + c * Vector3.forward) * pillarWidth;
@@ -116,7 +116,7 @@ public class Pillars2D : MonoBehaviour
     }
 
     bool _hintHide = false;
-    bool hintHide
+    public bool hintHide
     {
         get => _hintHide;
         set

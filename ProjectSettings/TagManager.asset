@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PositionMarker
   - PillarController
+  - Pillar2dController
   layers:
   - Default
   - TransparentFX
