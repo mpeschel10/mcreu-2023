@@ -198,7 +198,7 @@ public class Pillars2D : MonoBehaviour
         return true;
     }
 
-    bool won;
+    public bool won;
     public void CheckWin()
     {
         if (won) return;

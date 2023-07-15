@@ -8,19 +8,15 @@ public class Pillar2dControllerState : MonoBehaviour
     [SerializeField] GameObject activeGroup, inactiveGroup;
     [SerializeField] GameObject menuInstructionXR, menuInstructionPC, controlsInstructionXR, controlsInstructionPC, goalInstruction;
     [SerializeField] GameObject eliminateInstruction, runtimeHintInstruction, rulerInstruction, maxInstruction, columnsInstruction, bestInstruction, congratulationsInstruction;
-    [SerializeField] GameObject ruler;
+    [SerializeField] GameObject ruler, nextButtonPC, nextButtonXR, scoreboard;
     [SerializeField] Pillars2D pillars;
+    [SerializeField] MenuToggle[] menuToggles;
     
     int scenario = TUTORIAL;
 
     GameObject[] allInstructions, basicInstructionsXR, basicInstructionsPC, hintInstructions;
     void Start()
     {
-        allInstructions = new GameObject[]
-        {
-            menuInstructionXR, menuInstructionPC, controlsInstructionXR, controlsInstructionPC, goalInstruction,
-            // maximumInstruction, eliminateInstruction, rulerInstruction,
-        };
         basicInstructionsPC = new GameObject[]
         {
             menuInstructionPC, controlsInstructionPC, goalInstruction,
@@ -33,6 +29,12 @@ public class Pillar2dControllerState : MonoBehaviour
         {
             eliminateInstruction, runtimeHintInstruction, rulerInstruction, maxInstruction, columnsInstruction, bestInstruction, congratulationsInstruction,
         };
+        HashSet<GameObject> allInstructionsSet = new HashSet<GameObject>();
+        allInstructionsSet.UnionWith(basicInstructionsPC);
+        allInstructionsSet.UnionWith(basicInstructionsXR);
+        allInstructionsSet.UnionWith(hintInstructions);
+        allInstructions = new GameObject[allInstructionsSet.Count];
+        allInstructionsSet.CopyTo(allInstructions);
         Fix();
     }
 
@@ -58,9 +60,10 @@ public class Pillar2dControllerState : MonoBehaviour
     
     void ShowHintInstructions()
     {
-        const int NEGATIVE_FIRST_THING_AFTER_TUTORIAL = -1;
-        for (int i = MAXIMUM; i <= scenario; i++)
+        const int NEGATIVE_FIRST_THING_AFTER_TUTORIAL = -ELIMINATE;
+        for (int i = TUTORIAL + 1; i <= scenario; i++)
         {
+            Debug.Log("Showing hint instruction " + i);
             Show(hintInstructions[i + NEGATIVE_FIRST_THING_AFTER_TUTORIAL]);
         }
     }
@@ -68,10 +71,14 @@ public class Pillar2dControllerState : MonoBehaviour
     {
         CleanInstructions();
         ShowBasicInstructions();
-        // ShowHintInstructions();
+        ShowHintInstructions();
         
         ruler.SetActive(scenario >= RULER);
         pillars.hintHide = (scenario == ELIMINATE);
+        
+        nextButtonPC.SetActive(!GameControllerState.isXR && pillars.won && scenario < CONGRATULATIONS);
+        nextButtonXR.SetActive( GameControllerState.isXR && pillars.won && scenario < CONGRATULATIONS);
+        scoreboard.SetActive( scenario > TUTORIAL);
         
         foreach (GameObject instruction in allInstructions)
         {
@@ -83,13 +90,11 @@ public class Pillar2dControllerState : MonoBehaviour
     }
     public void OnWin()
     {
-        Debug.Log("Pillar2dcontrollerstate win");
         Fix();
     }
 
     public void OnNext()
     {
-        Debug.Log("Pillar2dcontrollerstate next");
         if (scenario < CONGRATULATIONS)
         {
             scenario++;
@@ -101,6 +106,17 @@ public class Pillar2dControllerState : MonoBehaviour
                 " to OnNext while scenario is CONGRATULATIONS. Did you not hide the button?"
             );
         }
+        Debug.Log("Scenario is now " + scenario);
+        pillars.Reset();
         Fix();
+
+        GameControllerState.menuLocation = GameControllerState.isXR ? MenuLocation.LeftHand : MenuLocation.FullScreen;
+        foreach (MenuToggle toggle in menuToggles)
+        {
+            if (toggle.gameObject.activeInHierarchy)
+            {
+                toggle.Fix();
+            }
+        }
     }
 }
