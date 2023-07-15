@@ -14,12 +14,13 @@ public class Pillars : MonoBehaviour
     GameObject[] pillarObjects;
     [SerializeField] GameObject maximumMarker;
     int cost = 0;
-    public bool won = false;
+    [System.NonSerialized] public bool won = false;
     int nextIndex = -1;
+    [SerializeField] GameObject pillarControllerObject;
     PillarControllerState pillarController;
     void Awake()
     {
-        pillarController = GameObject.FindGameObjectWithTag("PillarController").GetComponent<PillarControllerState>();
+        pillarController = pillarControllerObject.GetComponent<PillarControllerState>();
         MakePillars();
         MakeHeights();
         ResetVariables();
@@ -145,26 +146,26 @@ public class Pillars : MonoBehaviour
             int spanIfBetween = right > left ? rightBoundaryIfBetween - index : index - leftBoundaryIfBetween;
             //int spanIfBelow; // This is always <= spanIfBetween, but might add flavor if I have time to implement it.
 
-            Debug.Log(spanIfAbove + " >= " + spanIfBetween);
+            // Debug.Log(spanIfAbove + " >= " + spanIfBetween);
             if (spanIfAbove >= spanIfBetween)
             {
-                Debug.Log("Span if above > spanifbetween");
+                // Debug.Log("Span if above > spanifbetween");
                 bool closerToRight = rightBoundaryIfAbove - index < index - leftBoundaryIfAbove;
-                Debug.Log((rightBoundaryIfAbove - index) + " < " + (index - leftBoundaryIfAbove));
+                // Debug.Log((rightBoundaryIfAbove - index) + " < " + (index - leftBoundaryIfAbove));
                 if (closerToRight)
                 {
-                    Debug.Log("Closer to right");
+                    // Debug.Log("Closer to right");
                     leftBoundaryIfAbove += 1;
                     left = MAX_HEIGHT;
                 } else {
-                    Debug.Log("Closer or equal to left");
+                    // Debug.Log("Closer or equal to left");
                     rightBoundaryIfAbove -= 1;
                     right = MAX_HEIGHT;
                 }
             } else {
-                Debug.Log("Span if above < spanifbetween");
+                // Debug.Log("Span if above < spanifbetween");
             }
-            Debug.Log("Interpolate args: " + index + ", " + leftBoundaryIfAbove + ", " + rightBoundaryIfAbove + ", " + left + ", " + right);
+            // Debug.Log("Interpolate args: " + index + ", " + leftBoundaryIfAbove + ", " + rightBoundaryIfAbove + ", " + left + ", " + right);
             height = Interpolate(index, leftBoundaryIfAbove, rightBoundaryIfAbove, left, right);
         }
         heights[index] = height;
@@ -245,7 +246,16 @@ public class Pillars : MonoBehaviour
         pillarCover.Reveal();
     }
 
-    public bool pairsHint { get; set; }
+    bool _pairsHint = false;
+    public bool pairsHint
+    {
+        get => _pairsHint;
+        set
+        {
+            // Debug.Log("Pairs hint is being set to " + value);
+            _pairsHint = value;
+        }
+    }
     private bool _maximumHint = false;
     public bool maximumHint {
         get { return _maximumHint; }
@@ -263,14 +273,23 @@ public class Pillars : MonoBehaviour
             float height = heights[i];
             if (height > bestHeight)
             {
-                Transform cell = pillarCovers[i].transform.parent.parent.parent;
-                Vector3 o = maximumMarker.transform.localPosition;
-                maximumMarker.transform.localPosition = new Vector3(cell.localPosition.x, o.y, o.z);
+                Transform pillar = pillarCovers[i].pillar.transform;
+                Transform cell = pillar.parent.parent.parent;
+                float distanceInFrontOfCell = pillarWidth;
+                float markerHeight = maximumMarker.transform.GetChild(0).lossyScale.y;
+                // Debug.Log("Setting amximmu marker with respect to pillar " + pillar.gameObject + " and cell " + cell.gameObject);
+                float distanceAboveCell = pillar.transform.lossyScale.y / 2f + markerHeight;
+                distanceAboveCell = Mathf.Clamp(distanceAboveCell, 0, MAX_HEIGHT / 2f * scaleCell.transform.localScale.y);
+                // Debug.Log("pillar y: " + pillar.transform.position.y + " height offset: " + pillar.transform.lossyScale.y / 2f + " My offset: " + markerHeight);
+                Vector3 position = pillar.transform.position;
+                position += cell.transform.up * distanceAboveCell + cell.transform.forward * distanceInFrontOfCell * -1;
+                maximumMarker.transform.position = position;
                 bestHeight = height;
                 // Debug.Log(oldPosition);
                 // Debug.Log(cell.localPosition.x);
             }
         }
+        Debug.Log("Fixing maximum; SetActive(" + (maximumHint && cost > 0) + ")");
         maximumMarker.SetActive(maximumHint && cost > 0);
     }
 

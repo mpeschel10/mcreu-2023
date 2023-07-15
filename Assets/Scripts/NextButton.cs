@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class NextButton : MonoBehaviour, MouseSelector.Clickable
 {
-    Pillar2dControllerState pillarController;
+    public interface HasOnNext
+    {
+        void OnNext();
+    }
+    [SerializeField] GameObject pillarControllerObject;
+    HasOnNext pillarController;
     void Awake()
     {
-        pillarController = GameObject.FindGameObjectWithTag("Pillar2dController").GetComponent<Pillar2dControllerState>();
+        pillarController = pillarControllerObject.GetComponent<HasOnNext>();
     }
 
     public void Click()

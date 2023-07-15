@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pillar2dControllerState : MonoBehaviour
+public class Pillar2dControllerState : MonoBehaviour, NextButton.HasOnNext
 {
     public const int TUTORIAL = 0, ELIMINATE = 1, RUNTIME_HINT = 2, RULER = 3, MAXIMUM = 4, COLUMNS = 5, BEST = 6, CONGRATULATIONS = 7;
     public const int OFFSET_FROM_SCENARIO_TO_HINT_INDEX_WHICH_IS_NEGATIVE_FIRST_THING_AFTER_TUTORIAL = -ELIMINATE;

@@ -15,7 +15,13 @@ public class CanClickHoverableMaterial : MonoBehaviour, MouseSelector.Hoverable
         if (hoverMaterial == null)
             hoverMaterial = GameControllerState.defaultHoverMaterial;
         if (meshRenderer == null)
+        {
             meshRenderer = GetComponent<MeshRenderer>();
+            if (meshRenderer == null)
+            {
+                Debug.LogWarning("CanClickHoverable " + gameObject + " could not find a MeshRenderer attached in Awake().");
+            }
+        }
         normalMaterial = meshRenderer.material;
         normalMaterials = new Material[otherRenderers.Length];
         for (int i = 0; i < otherRenderers.Length; i++)

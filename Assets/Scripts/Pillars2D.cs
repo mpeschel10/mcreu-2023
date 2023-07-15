@@ -8,16 +8,17 @@ public class Pillars2D : MonoBehaviour
     PillarCover2[][] pillarCovers;
     GameObject[][] pillarObjects;
     float[][] heights;
-    [SerializeField] GameObject sourceCell;
+    [SerializeField] GameObject sourceCell, maximumMarker;
     [SerializeField] FireworksOnOff fireworks;
     [SerializeField] Material winMaterial;
     [SerializeField] Scoreboard scoreboard;
     Adversary adversary;
     Pillar2dControllerState pillarController;
+    [SerializeField] GameObject pillarControllerObject;
     void Awake()
     {
         adversary = GetComponent<Adversary>();
-        pillarController = GameObject.FindGameObjectWithTag("Pillar2dController").GetComponent<Pillar2dControllerState>();
+        pillarController = pillarControllerObject.GetComponent<Pillar2dControllerState>();
     }
     void Start()
     {
@@ -66,7 +67,7 @@ public class Pillars2D : MonoBehaviour
                     heightsRow[c] = MIN_HEIGHT;
                     continue;
                 }
-                Vector3 v = backLeft + (r * Vector3.right + c * Vector3.forward) * pillarWidth;
+                Vector3 v = backLeft + (r * transform.right + c * transform.forward) * pillarWidth;
                 GameObject g = Object.Instantiate(sourceCell, v, q, transform);
                 g.SetActive(true);
                 
@@ -88,6 +89,8 @@ public class Pillars2D : MonoBehaviour
         MakePillars();
 
         adversary.Reset(heights, pillarCovers);
+        FixEliminated();
+        FixMaximumMarker();
     }
 
     public static Color HeightToColor(float height)
@@ -115,6 +118,40 @@ public class Pillars2D : MonoBehaviour
         pillarCovers[r][c].color = GetColor(r, c);
     }
 
+    bool _hintMaximum = true;
+    public bool hintMaximum {
+        get => _hintMaximum;
+        set { _hintMaximum = value; }
+    }
+    public void FixMaximumMarker()
+    {
+        // Debug.Log("Fixing maximum.");
+        maximumMarker.SetActive(hintMaximum && scoreboard.cost != 0);
+        // Debug.Log(hintMaximum + " " + scoreboard.cost);
+        if (!maximumMarker.activeSelf) return;
+        // Debug.Log("Fixing maximum2 asdfasdfasdfawef.");
+        float bestHeight = MIN_HEIGHT;
+        int bestC = -1, bestR = -1;
+        for (int r = 1; r < heights.Length; r++)
+        {
+            float[] row = heights[r];
+            for (int c = 1; c < row.Length - 1; c++)
+            {
+                float height = row[c];
+                if (height >= bestHeight)
+                {
+                    bestHeight = height;
+                    bestR = r; bestC = c;
+                }
+            }
+        }
+
+        GameObject pillar = pillarCovers[bestR][bestC].pillar;
+        float pillarHeight = pillar.transform.parent.lossyScale.y;
+        float markerHeight = maximumMarker.transform.lossyScale.y;
+        maximumMarker.transform.position = pillar.transform.position + pillar.transform.up * (pillarHeight * 0.5f + markerHeight);
+    }
+
     bool _hintHide = false;
     public bool hintHide
     {
@@ -122,20 +159,23 @@ public class Pillars2D : MonoBehaviour
         set
         {
             _hintHide = value;
-            HideEliminated();
+            FixEliminated();
         }
     }
-    void HideEliminated()
+    void FixEliminated()
     {
-        adversary.AssignRegions(heights);
-        adversary.AssignIsCellEliminated();
+        if (hintHide)
+        {
+            adversary.AssignRegions(heights);
+            adversary.AssignIsCellEliminated();
+        }
+
         for (int r = 1; r < pillarObjects.Length - 1; r++)
         {
-            bool[] eliminatedRow = adversary.isCellEliminated[r];
             GameObject[] pillarRow = pillarObjects[r];
             for (int c = 1; c < pillarRow.Length - 1; c++)
             {
-                pillarRow[c].SetActive(!hintHide || !eliminatedRow[c]);
+                pillarRow[c].SetActive(!hintHide || !adversary.isCellEliminated[r][c]);
             }
         }
     }
@@ -163,7 +203,8 @@ public class Pillars2D : MonoBehaviour
             scoreboard.cost += 1;
             CheckWin();
         }
-        HideEliminated();
+        FixEliminated();
+        FixMaximumMarker();
     }
 
     (int, int)[] cardinalOffsets = {
@@ -262,7 +303,7 @@ public class Pillars2D : MonoBehaviour
         }
         if (Input.GetKeyDown("e"))
         {
-            HideEliminated();
+            FixEliminated();
         }
         if (Input.GetKeyDown("h"))
         {

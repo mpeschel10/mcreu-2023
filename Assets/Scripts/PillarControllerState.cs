@@ -11,7 +11,7 @@ enum Scenario : int
     Pairs = 4,
     Next = 5,
 }
-public class PillarControllerState : MonoBehaviour
+public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
 {
     [SerializeField] Pillars pillars;
     [SerializeField] GameObject nextButton, nextButtonVR;
@@ -150,7 +150,7 @@ public class PillarControllerState : MonoBehaviour
 
     public void Fix()
     {
-        Debug.Log("Fix clean menu. scneario " + scenario);
+        // Debug.Log("Fix clean menu. scneario " + scenario);
         CleanMenu();
         // Debug.Log("basic instructions");
         FixBasicInstructions();
@@ -168,10 +168,10 @@ public class PillarControllerState : MonoBehaviour
                 f.Fix();
             }
         }
-        pillars.maximumHint = (int) scenario >= (int) Scenario.Maximum;
+        pillars.maximumHint = true;// (int) scenario >= (int) Scenario.Maximum;
         pillars.hideHint =     scenario == Scenario.Eliminate;
         ruler.SetActive( (int) scenario >= (int) Scenario.Ruler);
-        pillars.pairsHint =    true;//scenario == Scenario.Pairs;
+        pillars.pairsHint =    scenario == Scenario.Pairs;
         pillars.nextStepHint = scenario == Scenario.Next;
 
         scoreBoard.SetActive(scenario != Scenario.Tutorial);
