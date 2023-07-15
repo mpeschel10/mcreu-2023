@@ -49,7 +49,7 @@ public class Pillar2dControllerState : MonoBehaviour
     void ShowBasicInstructions()
     {
         GameObject[] basicInstructions = GameControllerState.isXR ? basicInstructionsXR : basicInstructionsPC;
-        Debug.Log("is xr? " + GameControllerState.isXR);
+        // Debug.Log("is xr? " + GameControllerState.isXR);
         foreach (GameObject instruction in basicInstructions)
         {
             Show(instruction);

@@ -110,6 +110,7 @@ public class Adversary : MonoBehaviour
     {
         regionNodes = new RegionNode[regions.Count];
         isEliminated = new bool[regions.Count];
+        // Initialize nodes
         for (int i = 0; i < isEliminated.Length; i++)
         {
             isEliminated[i] = !activeRegions[i];
@@ -117,13 +118,14 @@ public class Adversary : MonoBehaviour
             regionNodes[i] = new RegionNode(this, i);
         }
         
+        // Connect nodes depending on whose border has the maximum
         for (int i = 0; i < isEliminated.Length; i++)
         {
             if (isEliminated[i]) continue;
             RegionNode node = regionNodes[i];
             RegionCell maximum = borderMaximums[node.regionIndex];
             if (heights[maximum.r][maximum.c] == Pillars2D.MIN_HEIGHT)
-                // When game is uninitialized, pretend that there must be a peak even though not really.
+                // When game is uninitialized, do not seek outside the array.
                 continue;
             // Debug.Log("Considering region " + i);
             // Debug.Log("Region has maximum located at " + maximum);
@@ -139,10 +141,12 @@ public class Adversary : MonoBehaviour
             }
         }
 
+        // Eliminate nodes that lead somewhere that doesn't lead back
         for (int i = 0; i < isEliminated.Length; i++)
         {
             if (isEliminated[i]) continue;
             RegionNode node = regionNodes[i];
+
             foreach (RegionNode neighbor in node.outLinks)
             {
                 if (!neighbor.outLinks.Contains(node))
@@ -152,6 +156,9 @@ public class Adversary : MonoBehaviour
                 }
             }
             RegionCell cell = borderMaximums[node.regionIndex];
+            if (heights[cell.r][cell.c] == Pillars2D.MIN_HEIGHT)
+                // When game is uninitialized, do not eliminate the starting area even though it might not have a peak.
+                continue;
             // This is kind of hacky...
             // Basically, we're looking to see if the ridge from node
             //  "leads" anywhere. Ideally, we would actually follow the ridge
@@ -170,19 +177,13 @@ public class Adversary : MonoBehaviour
             }
         }
 
-        string activeNodes = "";
-        for (int i = 0; i < activeRegions.Count; i++)
-        {
-            if (!activeRegions[i]) continue;
-            activeNodes += i + ", ";
-        }
-        // Debug.Log("Active regions: " + activeNodes);
-        for (int i = 0; i < activeRegions.Count; i++)
-        {
-            if (!activeRegions[i]) continue;
-            RegionNode node = regionNodes[i];
-            // Debug.Log("Region " + i + " connects to " + repr(node.outLinks));
-        }
+        // Debug.Log("Active regions: " + repr(activeNodes));
+        // for (int i = 0; i < activeRegions.Count; i++)
+        // {
+        //     if (!activeRegions[i]) continue;
+        //     RegionNode node = regionNodes[i];
+        //     Debug.Log("Region " + i + " connects to " + repr(node.outLinks));
+        // }
 
         isEliminated[1] = false; // Do not hide revealed cells
     }
