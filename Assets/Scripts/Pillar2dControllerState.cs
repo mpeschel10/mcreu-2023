@@ -9,7 +9,7 @@ public class Pillar2dControllerState : MonoBehaviour, NextButton.HasOnNext
     [SerializeField] GameObject activeGroup, inactiveGroup;
     [SerializeField] GameObject menuInstructionXR, menuInstructionPC, controlsInstructionXR, controlsInstructionPC, goalInstruction;
     [SerializeField] GameObject eliminateInstruction, runtimeHintInstruction, rulerInstruction, maxInstruction, columnsInstruction, bestInstruction, congratulationsInstruction;
-    [SerializeField] GameObject ruler, nextButtonPC, nextButtonXR, scoreboard;
+    [SerializeField] GameObject ruler, nextButtonPC, nextButtonXR, scoreboard, menuMainScreen, menuInstructionsScreen;
     [SerializeField] Pillars2D pillars;
     [SerializeField] MenuToggle[] menuToggles;
     
@@ -75,6 +75,7 @@ public class Pillar2dControllerState : MonoBehaviour, NextButton.HasOnNext
         
         ruler.SetActive(scenario >= RULER);
         pillars.hintHide = (scenario == ELIMINATE);
+        pillars.hintMaximum = (scenario >= MAXIMUM);
         
         nextButtonPC.SetActive(!GameControllerState.isXR && pillars.won && scenario < CONGRATULATIONS);
         nextButtonXR.SetActive( GameControllerState.isXR && pillars.won && scenario < CONGRATULATIONS);
@@ -116,7 +117,7 @@ public class Pillar2dControllerState : MonoBehaviour, NextButton.HasOnNext
             }
         }
 
-        GameControllerState.menuLocation = GameControllerState.isXR ? MenuLocation.LeftHand : MenuLocation.FullScreen;
+        GameControllerState.menuLocation = GameControllerState.isXR ? GameControllerState.lastMenuHand : MenuLocation.FullScreen;
         foreach (MenuToggle toggle in menuToggles)
         {
             if (toggle.gameObject.activeInHierarchy)
@@ -124,6 +125,9 @@ public class Pillar2dControllerState : MonoBehaviour, NextButton.HasOnNext
                 toggle.Fix();
             }
         }
+
+        menuMainScreen.SetActive(false);
+        menuInstructionsScreen.SetActive(true);
     }
 
     public void OnNext()

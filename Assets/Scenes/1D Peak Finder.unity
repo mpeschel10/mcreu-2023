@@ -628,6 +628,7 @@ GameObject:
   - component: {fileID: 167468017}
   - component: {fileID: 167468015}
   - component: {fileID: 167468019}
+  - component: {fileID: 167468020}
   m_Layer: 7
   m_Name: Ruler End
   m_TagString: Untagged
@@ -712,6 +713,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4661620a6816c1a4fa53595ef150c235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &167468020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167468013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855cb46d7bedda443b45e14c619a3884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabPriority: 5
 --- !u!224 &234144167 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 940617354958320603, guid: ef21716856bbdf643b65545a9d3646ce,
@@ -3322,6 +3336,7 @@ GameObject:
   - component: {fileID: 635233129}
   - component: {fileID: 635233127}
   - component: {fileID: 635233132}
+  - component: {fileID: 635233133}
   m_Layer: 7
   m_Name: Ruler Start
   m_TagString: Untagged
@@ -3406,6 +3421,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4661620a6816c1a4fa53595ef150c235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &635233133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635233126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855cb46d7bedda443b45e14c619a3884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabPriority: 5
 --- !u!1 &635831979
 GameObject:
   m_ObjectHideFlags: 0
@@ -5321,8 +5349,8 @@ MonoBehaviour:
 
     You
     may suspect that taking samples farther apart can get better performance, but
-    the approaches are equal every other step and the difference becomes negligible
-    for a small search space.'
+    the approaches are equal every other step and the difference converges as the
+    search space narrows.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5458,11 +5486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Goal: Find peak in least number of steps
-
-
-    Press any thumb button
-    to toggle menu.'
+  m_text: Press any thumb button to toggle menu.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5497,7 +5521,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -5896,6 +5920,8 @@ MonoBehaviour:
   - {fileID: 1352224725}
   ruler: {fileID: 1939790862}
   scoreBoard: {fileID: 259224925}
+  menuInstructionsScreen: {fileID: 2061838855858950826}
+  menuMainScreen: {fileID: 2061838855858950825}
 --- !u!1 &979494844
 GameObject:
   m_ObjectHideFlags: 0
@@ -13653,10 +13679,14 @@ PrefabInstance:
     - target: {fileID: 668752946942805845, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_text
-      value: 'Hold index finger button to pinch.
+      value: 'Press any thumb button to toggle menu.
 
-        For menus, pinch while
-        pointing at button to click it.'
+
+        Hold index finger
+        button to pinch.
+
+        For menus, pinch while pointing at button to click
+        it.'
       objectReference: {fileID: 0}
     - target: {fileID: 1517290631614344925, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
@@ -13873,6 +13903,18 @@ PrefabInstance:
 --- !u!224 &2061838855858950824 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3089614401362124760, guid: ef21716856bbdf643b65545a9d3646ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 2061838855858950823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2061838855858950825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7256775700068019, guid: ef21716856bbdf643b65545a9d3646ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 2061838855858950823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2061838855858950826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
     type: 3}
   m_PrefabInstance: {fileID: 2061838855858950823}
   m_PrefabAsset: {fileID: 0}

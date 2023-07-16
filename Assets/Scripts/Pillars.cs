@@ -44,6 +44,7 @@ public class Pillars : MonoBehaviour
             Destroy(g);
         sourceCell.SetActive(true);
         Awake();
+        pillarController.Fix();
     }
 
     float pillarWidth;
@@ -289,13 +290,13 @@ public class Pillars : MonoBehaviour
                 // Debug.Log(cell.localPosition.x);
             }
         }
-        Debug.Log("Fixing maximum; SetActive(" + (maximumHint && cost > 0) + ")");
+        // Debug.Log("Fixing maximum; SetActive(" + (maximumHint && cost > 0) + ")");
         maximumMarker.SetActive(maximumHint && cost > 0);
     }
 
     public void Click(int index)
     {
-        Debug.Log("Click index " + index);
+        // Debug.Log("Click index " + index);
         cost++;
         Reveal(index);
 
@@ -325,7 +326,7 @@ public class Pillars : MonoBehaviour
         {
             if (heights[i - 1] <= heights[i] && heights[i] >= heights[i + 1])
             {
-                Debug.Log("Won");
+                // Debug.Log("Won");
                 won = true;
                 pillarController.OnWin();
                 pillarCovers[i].pillar.GetComponent<MeshRenderer>().material = winMaterial;

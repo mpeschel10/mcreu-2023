@@ -5,7 +5,22 @@ using UnityEngine.XR;
 
 public class GameControllerState : MonoBehaviour
 {
-    public static MenuLocation menuLocation;
+    static MenuLocation _menuLocation; // Set in Awake() for some reason
+    public static MenuLocation menuLocation
+    {
+        get => _menuLocation;
+        set
+        {
+            if (value == MenuLocation.LeftHand || value == MenuLocation.RightHand)
+                _lastMenuHand = value;
+            _menuLocation = value;
+        }
+    }
+    static MenuLocation _lastMenuHand = MenuLocation.LeftHand;
+    public static MenuLocation lastMenuHand
+    {
+        get => _lastMenuHand;
+    }
     public static ActiveCamera activeCamera;
     
     static Material _defaultHoverMaterial;

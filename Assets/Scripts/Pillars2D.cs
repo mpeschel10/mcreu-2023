@@ -118,7 +118,7 @@ public class Pillars2D : MonoBehaviour
         pillarCovers[r][c].color = GetColor(r, c);
     }
 
-    bool _hintMaximum = true;
+    bool _hintMaximum = false;
     public bool hintMaximum {
         get => _hintMaximum;
         set { _hintMaximum = value; }

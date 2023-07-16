@@ -23,7 +23,7 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
     GameObject[] allInstructions;
     GameObject[] basicInstructionsPC, basicInstructionsVR, hintInstructions;
     [SerializeField] MenuToggle[] menuToggles;
-    [SerializeField] GameObject ruler, scoreBoard;
+    [SerializeField] GameObject ruler, scoreBoard, menuInstructionsScreen, menuMainScreen;
     
     void Awake()
     {
@@ -54,7 +54,7 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
 
     public void OnWin()
     {
-        Debug.Log("pillar controller Won.");
+        // Debug.Log("pillar controller Won.");
         Fix();
     }
 
@@ -68,13 +68,16 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
 
     public void OnNext()
     {
-        if ((int) scenario < (int) Scenario.Next)
+        if (scenario == Scenario.Next)
         {
-            scenario++;
+            OpenMenu();
+            ChangeScene.ByOffset(1);
+            return;
         }
+        scenario++;
         
         pillars.Reset(); // Sets won to false; call BEFORE Fix
-        Fix();
+        // Fix(); // Called by pillars.Reset();
         
         // Open the menu to the curren instruction.
         CleanActiveness();
@@ -106,8 +109,9 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
         {
 
         }
-        
-        GameControllerState.menuLocation = GameControllerState.isXR ? MenuLocation.LeftHand : MenuLocation.FullScreen;
+        menuMainScreen.SetActive(false);
+        menuInstructionsScreen.SetActive(true);
+        OpenMenu();
         foreach (MenuToggle toggle in menuToggles)
         {
             if (toggle.gameObject.activeInHierarchy)
@@ -115,6 +119,11 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
                 toggle.Fix();
             }
         }
+    }
+
+    void OpenMenu()
+    {
+        GameControllerState.menuLocation = GameControllerState.isXR ? GameControllerState.lastMenuHand : MenuLocation.FullScreen;
     }
 
     void CleanMenu()
@@ -169,10 +178,10 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
             }
         }
         pillars.maximumHint = (int) scenario >= (int) Scenario.Maximum;
-        pillars.hideHint =     scenario == Scenario.Eliminate;
-        ruler.SetActive( (int) scenario >= (int) Scenario.Ruler);
-        pillars.pairsHint =    scenario == Scenario.Pairs;
-        pillars.nextStepHint = scenario == Scenario.Next;
+        pillars.hideHint =          scenario ==       Scenario.Eliminate;
+        ruler.SetActive(      (int) scenario >= (int) Scenario.Ruler);
+        pillars.pairsHint =         scenario ==       Scenario.Pairs;
+        pillars.nextStepHint =      scenario ==       Scenario.Next;
 
         scoreBoard.SetActive(scenario != Scenario.Tutorial);
 

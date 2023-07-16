@@ -1886,6 +1886,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509333441}
     m_Modifications:
+    - target: {fileID: 7102700835763194468, guid: 6c4675656ed510444905e9bbb47d657b,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102700835763194468, guid: 6c4675656ed510444905e9bbb47d657b,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7102700835809912738, guid: 6c4675656ed510444905e9bbb47d657b,
         type: 3}
       propertyPath: m_Name
@@ -1963,7 +1973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &243000466
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6451,7 +6461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -6548,10 +6558,14 @@ PrefabInstance:
     - target: {fileID: 668752946942805845, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_text
-      value: 'Hold index finger button to pinch.
+      value: 'Press any thumb button to toggle menu.
 
-        For menus, pinch while
-        pointing at button to click it.'
+
+        Hold index finger
+        button to pinch.
+
+        For menus, pinch while pointing at button to click
+        it.'
       objectReference: {fileID: 0}
     - target: {fileID: 2061838855556534914, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
@@ -6701,7 +6715,7 @@ PrefabInstance:
     - target: {fileID: 6289632321612821109, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
         type: 3}
@@ -7246,11 +7260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Goal: Find peak in least number of steps
-
-
-    Press any thumb button
-    to open menu for more instructions.'
+  m_text: Press any thumb button to open menu for more instructions.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7285,7 +7295,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -7462,6 +7472,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886810530}
   m_CullTransparentMesh: 1
+--- !u!1 &898839565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7256775700068019, guid: ef21716856bbdf643b65545a9d3646ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 831030605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &903733871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9790,6 +9806,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216861480}
   m_CullTransparentMesh: 1
+--- !u!1 &1218688118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7597713901630857359, guid: ef21716856bbdf643b65545a9d3646ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 831030605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1226015624
 GameObject:
   m_ObjectHideFlags: 0
@@ -13466,8 +13488,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653032756}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.988, y: 1.2732959, z: 0.159}
+  m_LocalRotation: {x: -0, y: 0.01673353, z: -0, w: 0.99986005}
+  m_LocalPosition: {x: 0.131, y: 1.2732959, z: -2.256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13475,7 +13497,7 @@ Transform:
   - {fileID: 1940753514}
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 1.918, z: 0}
 --- !u!114 &1653032758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14485,6 +14507,8 @@ MonoBehaviour:
   nextButtonPC: {fileID: 1240505245}
   nextButtonXR: {fileID: 288436990}
   scoreboard: {fileID: 259224925}
+  menuMainScreen: {fileID: 898839565}
+  menuInstructionsScreen: {fileID: 1218688118}
   pillars: {fileID: 1509333442}
   menuToggles:
   - {fileID: 823301892}
@@ -14679,7 +14703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1839556577
 RectTransform:
   m_ObjectHideFlags: 0
