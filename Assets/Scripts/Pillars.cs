@@ -33,7 +33,7 @@ public class Pillars : MonoBehaviour
     {
         cost = 0;
         scoreboard.cost = cost;
-        scoreboard.best = GetBest(count);
+        scoreboard.best = GetBest(count).ToString();
         won = false;
         nextStepHint = false;
     }

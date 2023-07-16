@@ -12,8 +12,8 @@ public class Scoreboard : MonoBehaviour, Fixable
         get => _cost;
         set { _cost = value; Fix(); }
     }
-    int _best = 0;
-    public int best
+    string _best = "0";
+    public string best
     {
         get => _best;
         set { _best = value; Fix(); }

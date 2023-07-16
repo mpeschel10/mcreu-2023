@@ -85,6 +85,7 @@ public class Pillars2D : MonoBehaviour
     {
         won = false;
         scoreboard.cost = 0;
+        scoreboard.best = "~50-60"; // TODO dynamic best rating. Also need adversarial...
         DestroyOldPillars();
         MakePillars();
 
