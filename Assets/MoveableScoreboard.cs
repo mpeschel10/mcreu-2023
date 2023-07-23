@@ -18,6 +18,9 @@ public class MoveableScoreboard : MonoBehaviour, Fixable
 
     public void Fix()
     {
-        SetTopRight(pillars.topRightPosition);
+        if (!GameControllerState.isXR)
+        {
+            SetTopRight(pillars.topRightPosition);
+        }
     }
 }
