@@ -32,12 +32,4 @@ public class SetCameraSizeToScreen : MonoBehaviour, Fixable
         // Debug.Log("Expected camera width: " + expectedSize);
         transform.position = pillars.centerPosition + normalDistance * pillars.transform.forward * -1;
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("b"))
-        {
-            Fix();
-        }
-    }
 }

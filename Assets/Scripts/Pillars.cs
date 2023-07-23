@@ -18,6 +18,7 @@ public class Pillars : MonoBehaviour
     int nextIndex = -1;
     [SerializeField] GameObject pillarControllerObject;
     [SerializeField] MoveableScoreboard moveableScoreboard;
+    [SerializeField] SetCameraSizeToScreen orthographicCamera;
     PillarControllerState pillarController;
     [System.NonSerialized] float minimumPillarWidth;
     void Awake()
@@ -92,10 +93,7 @@ public class Pillars : MonoBehaviour
     {
         // PC camera will adapt to whatever our pillarSpan is.
         // So after setting width to whatever, make sure height will fit in aspect ratio.
-        // Set location of scoreboard
-        // Call camera.fix()
         float targetSpan = 1f; // Width of table. Might as well.
-        // Debug.Log("Suggested pillar size: " + targetSpan / (float) count + " minimum " + minimumPillarWidth);
         pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumPillarWidth, float.PositiveInfinity);
         if (!GameControllerState.isXR)
         {
@@ -125,6 +123,7 @@ public class Pillars : MonoBehaviour
         pillarCovers[pillarCovers.Length - 1].transform.parent.parent.parent.gameObject.SetActive(false);
 
         moveableScoreboard.Fix();
+        orthographicCamera.Fix();
     }
 
     void MakeHeights()
