@@ -50,7 +50,7 @@
        x="-15.872388"
        y="-16.993551" />
     <circle
-       style="fill:none;stroke:#000000;stroke-width:4.86336"
+       style="fill:none;stroke:#000000;stroke-width:12;stroke-dasharray:none"
        id="path344"
        cx="50"
        cy="50"
@@ -63,11 +63,11 @@
        x="1.8177288"
        y="33.341728" />
     <path
-       style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:4.86299;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:12;stroke-dasharray:none;stroke-opacity:1"
        d="M 68.234524,29.672136 89.37541,34.317139 94.020416,13.176257"
        id="path3408" />
     <path
-       style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:4.86299;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:12;stroke-dasharray:none;stroke-opacity:1"
        d="m 32.278485,71.047064 -21.14089,-4.645 -4.64501,21.14088"
        id="path3410" />
   </g>

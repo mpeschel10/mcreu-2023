@@ -78,11 +78,13 @@ public class GameControllerState : MonoBehaviour
         {
             positionMarker = candidateObject;
             positionMarker.SetActive(false);
+            Debug.Log("Set position marker " + positionMarker);
         }
         FixIsXR();
     }
 
     [SerializeField] Material defaultHoverMaterialInstance;
+    [SerializeField] GameObject defaultPositionMarkerInstance;
     void Awake()
     {
         if (oneTrueInstance != null)
@@ -91,6 +93,7 @@ public class GameControllerState : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        Debug.Log("!!---------------!! Beginning of application log. !!---------------!!");
         if (isXR)
         {
             // Debug.Log("Gamecontroller awake says isXR");
@@ -110,5 +113,10 @@ public class GameControllerState : MonoBehaviour
     {
         FixIsXR(); // Just in case I messed it up by calling isXR in Awake
         // Debug.Log("As of gamecontroller state start , menuLocation is " + menuLocation);
+    }
+
+    public static void Mark(Vector3 position)
+    {
+        GameObject.Instantiate(positionMarker, position, positionMarker.transform.rotation).SetActive(true);
     }
 }

@@ -17,7 +17,7 @@ public class NextButton : MonoBehaviour, MouseSelector.Clickable
 
     public void Click()
     {
-        Debug.Log("Next click");
+        // Debug.Log("Next click");
         pillarController.OnNext();
     }
 }

@@ -17,9 +17,12 @@ public class Pillars : MonoBehaviour
     [System.NonSerialized] public bool won = false;
     int nextIndex = -1;
     [SerializeField] GameObject pillarControllerObject;
+    [SerializeField] MoveableScoreboard moveableScoreboard;
     PillarControllerState pillarController;
+    [System.NonSerialized] float minimumPillarWidth;
     void Awake()
     {
+        minimumPillarWidth = scaleCell.transform.localScale.x;
         pillarController = pillarControllerObject.GetComponent<PillarControllerState>();
         MakePillars();
         MakeHeights();
@@ -47,14 +50,57 @@ public class Pillars : MonoBehaviour
         pillarController.Fix();
     }
 
-    float pillarWidth;
+    public float pillarWidth
+    {
+        get { return scaleCell.transform.localScale.x; }
+        set
+        {
+            Vector3 oldScale = scaleCell.transform.localScale;
+            scaleCell.transform.localScale = new Vector3(value, oldScale.y, oldScale.z);
+        }
+    }
+
+    public float pillarHeight
+    {
+        get { return scaleCell.transform.localScale.y; }
+        set
+        {
+            Vector3 o = scaleCell.transform.localScale;
+            scaleCell.transform.localScale = new Vector3(o.x, value, o.z);
+        }
+    }
+    public float pillarSpan
+    {
+        get { return pillarWidth * count; }
+    }
+
+    public Vector3 centerPosition
+    {
+        get
+        {
+            return transform.position + transform.up * pillarHeight / 2f + transform.forward * pillarWidth / 2f;
+        }
+    }
+    public Vector3 topRightPosition
+    {
+        get
+        {
+            return transform.position + transform.up * pillarHeight + transform.forward * pillarWidth / 2f + transform.right * pillarSpan / 2f;
+        }
+    }
     void MakePillars()
     {
-        float minimumWidth = scaleCell.transform.lossyScale.x;
-        float targetSpan = 1f; // Width of table.
-        pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumWidth, float.PositiveInfinity);
-        Vector3 oldScale = scaleCell.transform.localScale;
-        scaleCell.transform.localScale = new Vector3(pillarWidth, oldScale.y, oldScale.z);
+        // PC camera will adapt to whatever our pillarSpan is.
+        // So after setting width to whatever, make sure height will fit in aspect ratio.
+        // Set location of scoreboard
+        // Call camera.fix()
+        float targetSpan = 1f; // Width of table. Might as well.
+        // Debug.Log("Suggested pillar size: " + targetSpan / (float) count + " minimum " + minimumPillarWidth);
+        pillarWidth = Mathf.Clamp(targetSpan / (float) count, minimumPillarWidth, float.PositiveInfinity);
+        if (!GameControllerState.isXR)
+        {
+            pillarHeight = pillarSpan / Camera.main.aspect;
+        }
         
         Vector3 start = sourceCell.transform.position;
         start += sourceCell.transform.right * -1 * pillarWidth * 0.5f * (count + 4);
@@ -77,6 +123,8 @@ public class Pillars : MonoBehaviour
         pillarCovers[1].transform.parent.parent.parent.gameObject.SetActive(false);
         pillarCovers[pillarCovers.Length - 2].transform.parent.parent.parent.gameObject.SetActive(false);
         pillarCovers[pillarCovers.Length - 1].transform.parent.parent.parent.gameObject.SetActive(false);
+
+        moveableScoreboard.Fix();
     }
 
     void MakeHeights()
@@ -140,6 +188,7 @@ public class Pillars : MonoBehaviour
             
             float left = heights[leftBoundaryIfAbove];
             float right = heights[rightBoundaryIfAbove];
+            // Debug.Log("Left is " + left + " right is " + right);
             int leftBoundaryIfBetween = SeekInflection(leftBoundaryIfAbove, -1);
             int rightBoundaryIfBetween = SeekInflection(rightBoundaryIfAbove, 1);
 
@@ -147,20 +196,25 @@ public class Pillars : MonoBehaviour
             int spanIfBetween = right > left ? rightBoundaryIfBetween - index : index - leftBoundaryIfBetween;
             //int spanIfBelow; // This is always <= spanIfBetween, but might add flavor if I have time to implement it.
 
+            // Regression testing:
+            // count = 40, Click([1, 22])
             // Debug.Log(spanIfAbove + " >= " + spanIfBetween);
             if (spanIfAbove >= spanIfBetween)
             {
                 // Debug.Log("Span if above > spanifbetween");
                 bool closerToRight = rightBoundaryIfAbove - index < index - leftBoundaryIfAbove;
                 // Debug.Log((rightBoundaryIfAbove - index) + " < " + (index - leftBoundaryIfAbove));
+                float minimumHeight = Mathf.Max(left, right);
                 if (closerToRight)
                 {
                     // Debug.Log("Closer to right");
                     leftBoundaryIfAbove += 1;
                     left = MAX_HEIGHT;
+                    right = minimumHeight;
                 } else {
                     // Debug.Log("Closer or equal to left");
                     rightBoundaryIfAbove -= 1;
+                    left = minimumHeight;
                     right = MAX_HEIGHT;
                 }
             } else {

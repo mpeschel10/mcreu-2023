@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Partition Intro.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/Binary Search.unity
-    guid: fdf89b9a80fd3e841a97c2688dc13100
   - enabled: 1
     path: Assets/Scenes/1D Peak Finder.unity
     guid: 791c059f0aa3b5044a00f4b6f6c81015
@@ -18,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/2D Peak Finder.unity
     guid: 2c5ef2c33c71aed4da71c265c1308065
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e2b9dfcac8ee5b54e9a2dc654fb7cbb5,
-      type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 88530d03efd9f834ea9568ae628ecb25,
-      type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ebb0b71add8789b4ebc26f9e3ed7b223,
-      type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e2b9dfcac8ee5b54e9a2dc654fb7cbb5, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f054e4372dd2df646b5b2030c9f5bc21, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ebb0b71add8789b4ebc26f9e3ed7b223, type: 2}
