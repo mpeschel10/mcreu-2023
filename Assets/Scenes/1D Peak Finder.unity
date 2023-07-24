@@ -11821,6 +11821,7 @@ MonoBehaviour:
   maximumMarker: {fileID: 619499272}
   pillarControllerObject: {fileID: 978236742}
   moveableScoreboard: {fileID: 1238711764}
+  orthographicCamera: {fileID: 1393476752}
 --- !u!1 &1846625067
 GameObject:
   m_ObjectHideFlags: 0

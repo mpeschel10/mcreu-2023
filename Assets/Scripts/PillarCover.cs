@@ -26,6 +26,10 @@ public class PillarCover : MonoBehaviour, MouseSelector.Clickable, MouseSelector
         return pillar.gameObject.activeSelf;
     }
 
+    public Color color
+    {
+        set { pillar.GetComponent<MeshRenderer>().material.color = value; }
+    }
     public void UpdateDisplayIndex()
     {
         textFront.text = (index - 2).ToString();

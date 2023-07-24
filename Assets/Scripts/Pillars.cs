@@ -175,6 +175,7 @@ public class Pillars : MonoBehaviour
         // Debug.Log("delta height: " + deltaH);
         return deltaH * (index - leftIndex) + leftHeight;
     }
+    public Color GetColor(int i) { return PillarColor.HeightToColor(heights[i]); }
     public void Collapse(int index)
     {
         float height;
@@ -223,6 +224,7 @@ public class Pillars : MonoBehaviour
             height = Interpolate(index, leftBoundaryIfAbove, rightBoundaryIfAbove, left, right);
         }
         heights[index] = height;
+        pillarCovers[index].color = GetColor(index);
     }
 
     private bool _hideHint = false;
