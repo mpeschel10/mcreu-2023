@@ -178,7 +178,7 @@ public class PillarControllerState : MonoBehaviour, NextButton.HasOnNext
             }
         }
         pillars.maximumHint = (int) scenario >= (int) Scenario.Maximum;
-        pillars.hideHint =          scenario ==       Scenario.Eliminate;
+        pillars.hideHint =    (int) scenario >= (int) Scenario.Eliminate;
         ruler.SetActive(      (int) scenario >= (int) Scenario.Ruler);
         pillars.pairsHint =         scenario ==       Scenario.Pairs;
         pillars.nextStepHint =      scenario ==       Scenario.Next;
