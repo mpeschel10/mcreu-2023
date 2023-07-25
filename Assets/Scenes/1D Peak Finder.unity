@@ -6974,7 +6974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A good algorithm for finding a peak should take O(n * log(n)) array accesses.
+  m_text: 'A good algorithm for finding a peak should take O(log(n)) array accesses.
 
 
     Try
