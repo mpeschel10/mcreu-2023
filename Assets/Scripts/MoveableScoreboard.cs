@@ -11,7 +11,7 @@ public class MoveableScoreboard : MonoBehaviour, Fixable
 
     public void SetTopRight(Vector3 topRight)
     {
-        Debug.Log(topRight);
+        // Debug.Log(topRight);
         transform.rotation = forwardQuaternion;
         transform.position = topRight + offsetFromCornerToCenter;
     }
