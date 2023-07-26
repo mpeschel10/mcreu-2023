@@ -78,7 +78,7 @@ public class GameControllerState : MonoBehaviour
         {
             positionMarker = candidateObject;
             positionMarker.SetActive(false);
-            Debug.Log("Set position marker " + positionMarker);
+            // Debug.Log("Set position marker " + positionMarker);
         }
         FixIsXR();
     }
